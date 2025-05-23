@@ -2,47 +2,41 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ProPSP | Терминал заказа</title>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-N2VB3T8J');</script>
-    <!-- End Google Tag Manager -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProPSP | Купить с предоплатой</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Courier New', monospace;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: #000;
             color: #0ffc03;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 12px;
-            line-height: 1.4;
-            -webkit-text-size-adjust: 100%;
+            padding: 15px;
+            line-height: 1.5;
         }
 
         .terminal {
             width: 100%;
-            max-width: 340px;
+            max-width: 100%;
             border: 1px solid #0ffc03;
-            padding: 15px;
+            padding: 20px 15px;
             box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+            border-radius: 5px;
         }
 
         h1 {
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: 18px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
             text-shadow: 0 0 5px #0ffc03;
@@ -51,93 +45,130 @@
 
         .divider {
             border-top: 1px dashed #0ffc03;
-            margin: 10px 0;
+            margin: 12px 0;
             opacity: 0.5;
         }
 
         .badge {
             border: 1px solid #0ffc03;
-            padding: 6px 0;
-            margin-bottom: 10px;
-            font-size: 11px;
+            padding: 8px 0;
+            margin-bottom: 12px;
+            font-size: 12px;
             letter-spacing: 0.5px;
             box-shadow: 0 0 8px rgba(0, 255, 0, 0.1);
             text-align: center;
+            border-radius: 3px;
         }
 
         .psp-gif {
-            width: 150px;
-            margin: 10px auto;
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
+            margin: 15px auto;
             display: block;
-            /* Убрана белая окантовка */
             border: none;
         }
 
-        .whatsapp-button {
+        .order-button {
             display: block;
-            background: transparent;
+            background: rgba(0, 255, 0, 0.1);
             color: #0ffc03;
             text-decoration: none;
-            padding: 10px 0;
+            padding: 14px 0;
             border: 1px solid #0ffc03;
-            margin: 15px auto;
-            font-size: 13px;
+            margin: 20px auto;
+            font-size: 16px;
+            font-weight: bold;
             letter-spacing: 0.5px;
-            -webkit-tap-highlight-color: transparent;
-            transition: all 0.2s;
             text-align: center;
-            width: 90%;
-            max-width: 220px;
+            width: 100%;
+            max-width: 280px;
+            border-radius: 5px;
+            transition: all 0.2s;
         }
 
-        .whatsapp-button:hover {
-            background: rgba(0, 255, 0, 0.1);
+        .order-button:active {
+            background: rgba(0, 255, 0, 0.2);
+            transform: scale(0.98);
         }
 
         .price-container {
-            margin: 10px 0;
+            margin: 18px 0;
             text-align: center;
         }
 
         .price {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: bold;
             text-shadow: 0 0 5px #0ffc03;
         }
 
         .old-price {
-            font-size: 12px;
+            font-size: 16px;
             color: #777;
             text-decoration: line-through;
-            margin-right: 8px;
+            margin-right: 10px;
         }
 
         .benefit {
-            margin: 8px 0;
-            font-size: 12px;
-            padding-left: 15px;
+            margin: 12px 0;
+            font-size: 14px;
+            padding-left: 22px;
             position: relative;
         }
 
         .benefit::before {
-            content: ">";
+            content: "■";
             position: absolute;
-            left: 5px;
+            left: 8px;
             color: #0ffc03;
+            font-size: 12px;
+            top: 4px;
+        }
+
+        .guarantee {
+            border: 1px solid #0ffc03;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 13px;
+            text-align: center;
+            background: rgba(0, 255, 0, 0.05);
+            line-height: 1.7;
+            border-radius: 5px;
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .payment-method {
+            text-align: center;
+            font-size: 12px;
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .payment-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
         }
 
         .contact-note {
-            font-size: 11px;
+            font-size: 13px;
             color: #aaa;
-            margin-top: 10px;
-            line-height: 1.5;
+            margin-top: 20px;
+            line-height: 1.7;
             text-align: center;
         }
 
         .info {
-            font-size: 10px;
+            font-size: 12px;
             color: #777;
-            margin-top: 8px;
+            margin-top: 15px;
             letter-spacing: 0.5px;
             text-align: center;
         }
@@ -146,53 +177,123 @@
             animation: blink 1s infinite;
         }
 
-        .fa-whatsapp {
-            margin-right: 5px;
-            font-size: 14px;
+        .fa-telegram {
+            margin-right: 8px;
+            font-size: 18px;
+            vertical-align: middle;
         }
 
         @keyframes blink {
             50% { opacity: 0; }
         }
+
+        .delivery-info {
+            font-size: 15px;
+            text-align: center;
+            margin: 15px 0;
+            color: #0ffc03;
+            font-weight: bold;
+        }
+
+        .warning-note {
+            color: #ff5555;
+            font-size: 13px;
+            text-align: center;
+            margin: 15px 0;
+            line-height: 1.6;
+            padding: 0 10px;
+        }
+
+        /* Анимация для привлечения внимания */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2VB3T8J"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    
     <div class="terminal">
         <h1>PRO PSP CONSOLE</h1>
         <div class="divider"></div>
-        <div class="badge">ОГРАНИЧЕННАЯ ПАРТИЯ</div>
+        <div class="badge">ОСТАТОК: 12 ШТУК</div>
         
         <img src="https://getneoplay.com/cdn/shop/files/4-ezgif.com-video-to-gif-converter.gif?v=1745853777" alt="PSP" class="psp-gif" loading="lazy">
         
-        <div class="benefit">Прошитая PSP 128GB</div>
-        <div class="benefit">30+ консолей в 1 PSP</div>
-        <div class="benefit">20000+ игр в комплекте</div>
+        <div class="delivery-info pulse">ДОСТАВКА 1-3 ДНЯ ПО ВСЕЙ РОССИИ</div>
         
-        <div class="divider"></div>
+        <div class="benefit">Прошитая PSP 128GB с играми</div>
+        <div class="benefit">35+ эмуляторов консолей</div>
+        <div class="benefit">21,500 игр установлено</div>
+        <div class="benefit">Официальная гарантия 2 года</div>
+        
+        <div class="guarantee">
+            <strong>ГАРАНТИИ БЕЗОПАСНОСТИ:</strong><br>
+            ✓ Договор купли-продажи<br>
+            ✓ Фото/видео перед отправкой<br>
+            ✓ Трек-номер после оплаты<br>
+            ✓ Страховка на полную сумму
+        </div>
         
         <div class="price-container">
-            <span class="old-price">100 000 ₸</span>
-            <span class="price">70 000 ₸</span>
+            <span class="old-price">24 990 ₽</span>
+            <span class="price">10 499 ₽</span>
+        </div>
+
+        <div class="payment-methods">
+            <div class="payment-method">
+                <div class="payment-icon"><i class="fas fa-credit-card"></i></div>
+                Карта
+            </div>
+            <div class="payment-method">
+                <div class="payment-icon"><i class="fas fa-university"></i></div>
+                Перевод
+            </div>
+            <div class="payment-method">
+                <div class="payment-icon"><i class="fab fa-bitcoin"></i></div>
+                Crypto
+            </div>
         </div>
         
-        <a href="https://wa.me/77003339904" class="whatsapp-button">
-            <i class="fab fa-whatsapp"></i> ЗАКАЗ В WHATSAPP
+        <a href="https://t.me/yslma" class="order-button pulse">
+            <i class="fab fa-telegram"></i> КУПИТЬ С ПРЕДОПЛАТОЙ
         </a>
         
-        <div class="contact-note">
-            Если не удалось перейти в WhatsApp:<br>
-            1. Нажмите на три точки справа вверху и выберите «Открыть в браузере»<br>
-            2. Или напишите на номер:<br>
-            +7 700 333 99 04
+        <div class="warning-note">
+            Только 100% предоплата!<br>
+            Отправка в день оплаты до 18:00 (МСК)
         </div>
         
-        <div class="info">>> ТОВАР В НАЛИЧИИ <span class="cursor">_</span></div>
+        <div class="contact-note">
+            <strong>Telegram для заказа:</strong><br>
+            @yslma<br><br>
+            
+            ✓ Официальный магазин с 2018<br>
+            ✓ 7,200+ довольных клиентов<br>
+            ✓ Отзывы предоставляем по запросу
+        </div>
+        
+        <div class="info">>> ОСТАЛОСЬ 12 ШТ. <span class="cursor">_</span></div>
     </div>
+
+    <script>
+        // Добавляем обработчик для кнопки
+        document.querySelector('.order-button').addEventListener('click', function(e) {
+            // Можно добавить здесь аналитику
+            console.log('Клиент переходит в Telegram');
+        });
+        
+        // Анимация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.querySelector('.terminal').style.opacity = '1';
+            }, 100);
+        });
+    </script>
 </body>
 </html>
