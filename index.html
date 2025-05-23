@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Быстрый заказ через WhatsApp</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
@@ -97,7 +97,7 @@
       width: 100%;
       border: none;
       cursor: pointer;
-      margin-bottom: 15px;
+      margin-bottom: 25px;
       box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
       opacity: 0;
       transform: translateY(20px);
@@ -136,25 +136,14 @@
     }
 
     .info {
-      margin-top: 10px;
+      margin-top: 15px;
       font-size: 13px;
       color: #aaa;
       opacity: 0;
       transform: translateY(20px);
       animation: fadeIn 0.8s 0.8s forwards;
       line-height: 1.4;
-    }
-
-    .extra-info {
-      margin-top: 15px;
-      font-size: 12px;
-      color: #777;
-      line-height: 1.4;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 0.8s 1s forwards;
       text-align: left;
-      user-select: text;
     }
 
     .pulse {
@@ -224,25 +213,24 @@
   
   <div class="container">
     <h1>Хотите сделать заказ?</h1>
-    <div class="badge">Бесплатная доставка по Казахстану</div>
+    <div class="badge">🚀 Бесплатная доставка по Казахстану</div>
     <a href="https://wa.me/77003339904" class="whatsapp-button">Написать в WhatsApp</a>
-    <div class="info">Свяжитесь с нами — это быстро и удобно</div>
-    <div class="extra-info">
-      Если не удалось перейти в WhatsApp:<br>
-      1. Откройте ссылку через браузер<br>
-      2. Или напишите на номер:<br>
+    <div class="info">
+      Если не удалось перейти в WhatsApp:<br />
+      1. Нажмите на три точки справа вверху и выберите «Открыть в браузере» 📲<br />
+      2. Или напишите на номер:<br />
       +7 700 333 99 04
     </div>
   </div>
 
   <script>
     // Добавляем микро-взаимодействия
-    const btn = document.querySelector('.whatsapp-button');
-    btn.addEventListener('mousedown', function() {
+    document.querySelector('.whatsapp-button').addEventListener('mousedown', function() {
       this.style.transform = 'translateY(2px)';
       this.style.boxShadow = '0 2px 10px rgba(37, 211, 102, 0.3)';
     });
-    btn.addEventListener('mouseup', function() {
+    
+    document.querySelector('.whatsapp-button').addEventListener('mouseup', function() {
       this.style.transform = 'translateY(-2px)';
       this.style.boxShadow = '0 6px 20px rgba(37, 211, 102, 0.4)';
     });
