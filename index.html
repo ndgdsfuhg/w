@@ -2,162 +2,148 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ProPSP | Терминал заказа</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Courier New', monospace;
+            font-family: -apple-system, BlinkMacSystemFont, 'Courier New', monospace;
         }
 
         body {
             background-color: #000;
-            color: #0f0;
+            color: #0ffc03;
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 20px;
-            line-height: 1.6;
+            padding: 12px;
+            line-height: 1.4;
+            -webkit-text-size-adjust: 100%;
         }
 
         .terminal {
-            max-width: 500px;
             width: 100%;
-            border: 1px solid #333;
-            padding: 20px;
-            position: relative;
-        }
-
-        .terminal::before {
-            content: "┌───────────────────────────────────────┐";
-            position: absolute;
-            top: -15px;
-            left: 0;
-            right: 0;
-            color: #0f0;
-            font-size: 12px;
-            letter-spacing: 1px;
-        }
-
-        .terminal::after {
-            content: "└───────────────────────────────────────┘";
-            position: absolute;
-            bottom: -15px;
-            left: 0;
-            right: 0;
-            color: #0f0;
-            font-size: 12px;
-            letter-spacing: 1px;
+            max-width: 340px;
+            border: 1px solid #0ffc03;
+            padding: 15px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
         }
 
         h1 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            font-weight: normal;
+            font-size: 16px;
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-shadow: 0 0 5px #0ffc03;
+            text-align: center;
         }
 
         .divider {
-            border-top: 1px dashed #333;
-            margin: 15px 0;
+            border-top: 1px dashed #0ffc03;
+            margin: 10px 0;
+            opacity: 0.5;
         }
 
         .badge {
-            border: 1px solid #0f0;
-            padding: 8px 0;
-            margin-bottom: 20px;
-            font-size: 12px;
-            letter-spacing: 1px;
+            border: 1px solid #0ffc03;
+            padding: 6px 0;
+            margin-bottom: 10px;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.1);
+            text-align: center;
+        }
+
+        .psp-gif {
+            width: 150px;
+            margin: 10px auto;
+            display: block;
+            border: 1px solid #333;
         }
 
         .whatsapp-button {
             display: block;
             background: transparent;
-            color: #0f0;
+            color: #0ffc03;
             text-decoration: none;
-            padding: 12px 0;
-            border: 1px solid #0f0;
-            margin: 20px 0;
-            font-size: 14px;
-            letter-spacing: 1px;
-            position: relative;
-            transition: all 0.3s;
+            padding: 10px 0;
+            border: 1px solid #0ffc03;
+            margin: 15px auto;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            -webkit-tap-highlight-color: transparent;
+            transition: all 0.2s;
+            text-align: center;
+            width: 90%;
+            max-width: 220px;
         }
 
         .whatsapp-button:hover {
             background: rgba(0, 255, 0, 0.1);
         }
 
-        .info {
+        .price-container {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 5px #0ffc03;
+        }
+
+        .old-price {
+            font-size: 12px;
+            color: #777;
+            text-decoration: line-through;
+            margin-right: 8px;
+        }
+
+        .benefit {
+            margin: 8px 0;
+            font-size: 12px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .benefit::before {
+            content: ">";
+            position: absolute;
+            left: 5px;
+            color: #0ffc03;
+        }
+
+        .contact-note {
             font-size: 11px;
-            color: #555;
+            color: #aaa;
             margin-top: 10px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .info {
+            font-size: 10px;
+            color: #777;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+            text-align: center;
         }
 
         .cursor {
             animation: blink 1s infinite;
         }
 
-        .price {
-            font-size: 24px;
-            color: #0f0;
-            margin: 15px 0;
-        }
-
-        .old-price {
+        .fa-whatsapp {
+            margin-right: 5px;
             font-size: 14px;
-            color: #555;
-            text-decoration: line-through;
-            margin-right: 10px;
-        }
-
-        .benefit {
-            margin: 10px 0;
-            text-align: left;
-            padding-left: 20px;
-            position: relative;
-            font-size: 14px;
-        }
-
-        .benefit::before {
-            content: ">";
-            position: absolute;
-            left: 0;
-            color: #0f0;
-        }
-
-        .contact-note {
-            font-size: 12px;
-            color: #777;
-            margin-top: 10px;
-            line-height: 1.4;
-        }
-
-        .psp-gif {
-            width: 100%;
-            max-width: 200px;
-            margin: 15px auto;
-            border: 1px solid #333;
-        }
-
-        .browser-hint {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            color: #555;
-            font-size: 11px;
-            display: flex;
-            align-items: center;
         }
 
         @keyframes blink {
-            0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
     </style>
@@ -165,14 +151,11 @@
 </head>
 <body>
     <div class="terminal">
-        <div class="browser-hint">
-        </div>
-        
         <h1>PRO PSP CONSOLE</h1>
         <div class="divider"></div>
         <div class="badge">ОГРАНИЧЕННАЯ ПАРТИЯ</div>
         
-        <img src="https://getneoplay.com/cdn/shop/files/4-ezgif.com-video-to-gif-converter.gif?v=1745853777" alt="PSP Console" class="psp-gif">
+        <img src="https://getneoplay.com/cdn/shop/files/4-ezgif.com-video-to-gif-converter.gif?v=1745853777" alt="PSP" class="psp-gif" loading="lazy">
         
         <div class="benefit">Прошитая PSP 128GB</div>
         <div class="benefit">30+ консолей в 1 PSP</div>
@@ -180,13 +163,13 @@
         
         <div class="divider"></div>
         
-        <div>
+        <div class="price-container">
             <span class="old-price">100 000 ₸</span>
             <span class="price">70 000 ₸</span>
         </div>
         
         <a href="https://wa.me/77003339904" class="whatsapp-button">
-            <i class="fab fa-whatsapp"></i> ЗАКАЗАТЬ В WHATSAPP
+            <i class="fab fa-whatsapp"></i> ЗАКАЗ В WHATSAPP
         </a>
         
         <div class="contact-note">
@@ -197,12 +180,6 @@
         </div>
         
         <div class="info">>> ТОВАР В НАЛИЧИИ <span class="cursor">_</span></div>
-        
-        <div class="divider"></div>
-        
-        <div class="benefit">Полная прошивка с возможностью добавления игр</div>
-        <div class="benefit">Гарантия 3 месяца</div>
-        <div class="benefit">Бесплатная доставка по всему Казахстану</div>
     </div>
 </body>
 </html>
