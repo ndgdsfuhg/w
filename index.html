@@ -1,239 +1,208 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Быстрый заказ через WhatsApp</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProPSP | Терминал заказа</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
 
-    body {
-      background-color: #0a0a0a;
-      color: #fff;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-      background-image: 
-        radial-gradient(circle at 75% 30%, rgba(37, 211, 102, 0.1) 0%, transparent 30%),
-        radial-gradient(circle at 25% 70%, rgba(37, 211, 102, 0.1) 0%, transparent 30%);
-      overflow: hidden;
-    }
+        body {
+            background-color: #000;
+            color: #0f0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
 
-    .container {
-      max-width: 320px;
-      width: 100%;
-      position: relative;
-      z-index: 2;
-    }
+        .terminal {
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid #333;
+            padding: 20px;
+            position: relative;
+        }
 
-    h1 {
-      font-size: 24px;
-      line-height: 1.4;
-      margin-bottom: 20px;
-      font-weight: 600;
-      background: linear-gradient(90deg, #fff, #e0e0e0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 0.8s 0.2s forwards;
-    }
+        .terminal::before {
+            content: "┌───────────────────────────────────────┐";
+            position: absolute;
+            top: -15px;
+            left: 0;
+            right: 0;
+            color: #0f0;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
 
-    .badge {
-      background-color: rgba(37, 211, 102, 0.1);
-      border: 1px solid rgba(37, 211, 102, 0.5);
-      border-radius: 30px;
-      padding: 8px 16px;
-      font-size: 14px;
-      margin-bottom: 30px;
-      color: #25D366;
-      display: inline-block;
-      backdrop-filter: blur(5px);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 0.8s 0.4s forwards;
-      position: relative;
-      overflow: hidden;
-    }
+        .terminal::after {
+            content: "└───────────────────────────────────────┘";
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            right: 0;
+            color: #0f0;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
 
-    .badge::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        to bottom right,
-        rgba(37, 211, 102, 0) 0%,
-        rgba(37, 211, 102, 0.1) 50%,
-        rgba(37, 211, 102, 0) 100%
-      );
-      transform: rotate(30deg);
-      animation: shine 3s infinite;
-    }
+        h1 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: normal;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    .whatsapp-button {
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      color: #fff;
-      text-decoration: none;
-      padding: 16px 0;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 16px;
-      transition: all 0.3s ease;
-      display: block;
-      width: 100%;
-      border: none;
-      cursor: pointer;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 0.8s 0.6s forwards;
-      position: relative;
-      overflow: hidden;
-    }
+        .divider {
+            border-top: 1px dashed #333;
+            margin: 15px 0;
+        }
 
-    .whatsapp-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-    }
+        .badge {
+            border: 1px solid #0f0;
+            padding: 8px 0;
+            margin-bottom: 20px;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
 
-    .whatsapp-button:active {
-      transform: translateY(0);
-    }
+        .whatsapp-button {
+            display: block;
+            background: transparent;
+            color: #0f0;
+            text-decoration: none;
+            padding: 12px 0;
+            border: 1px solid #0f0;
+            margin: 20px 0;
+            font-size: 14px;
+            letter-spacing: 1px;
+            position: relative;
+            transition: all 0.3s;
+        }
 
-    .whatsapp-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.2),
-        transparent
-      );
-      transition: 0.5s;
-    }
+        .whatsapp-button:hover {
+            background: rgba(0, 255, 0, 0.1);
+        }
 
-    .whatsapp-button:hover::before {
-      left: 100%;
-    }
+        .info {
+            font-size: 11px;
+            color: #555;
+            margin-top: 10px;
+        }
 
-    .info {
-      margin-top: 15px;
-      font-size: 13px;
-      color: #aaa;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 0.8s 0.8s forwards;
-      line-height: 1.4;
-      text-align: left;
-    }
+        .cursor {
+            animation: blink 1s infinite;
+        }
 
-    .pulse {
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      background: rgba(37, 211, 102, 0.1);
-      border-radius: 50%;
-      z-index: 1;
-      animation: pulse 4s infinite;
-    }
+        .price {
+            font-size: 24px;
+            color: #0f0;
+            margin: 15px 0;
+        }
 
-    .pulse:nth-child(1) {
-      top: 20%;
-      left: 10%;
-      animation-delay: 0s;
-    }
+        .old-price {
+            font-size: 14px;
+            color: #555;
+            text-decoration: line-through;
+            margin-right: 10px;
+        }
 
-    .pulse:nth-child(2) {
-      top: 60%;
-      left: 70%;
-      animation-delay: 1s;
-    }
+        .benefit {
+            margin: 10px 0;
+            text-align: left;
+            padding-left: 20px;
+            position: relative;
+            font-size: 14px;
+        }
 
-    .pulse:nth-child(3) {
-      top: 80%;
-      left: 20%;
-      animation-delay: 2s;
-    }
+        .benefit::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: #0f0;
+        }
 
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        .contact-note {
+            font-size: 12px;
+            color: #777;
+            margin-top: 10px;
+            line-height: 1.4;
+        }
 
-    @keyframes pulse {
-      0% {
-        transform: scale(0.8);
-        opacity: 0.5;
-      }
-      70% {
-        transform: scale(1.3);
-        opacity: 0;
-      }
-      100% {
-        transform: scale(0.8);
-        opacity: 0;
-      }
-    }
+        .psp-gif {
+            width: 100%;
+            max-width: 200px;
+            margin: 15px auto;
+            border: 1px solid #333;
+        }
 
-    @keyframes shine {
-      0% {
-        transform: rotate(30deg) translate(-10%, -10%);
-      }
-      100% {
-        transform: rotate(30deg) translate(10%, 10%);
-      }
-    }
-  </style>
+        .browser-hint {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #555;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <div class="pulse"></div>
-  <div class="pulse"></div>
-  <div class="pulse"></div>
-  
-  <div class="container">
-    <h1>Хотите сделать заказ?</h1>
-    <div class="badge">🚀 Бесплатная доставка по Казахстану</div>
-    <a href="https://wa.me/77003339904" class="whatsapp-button">Написать в WhatsApp</a>
-    <div class="info">
-      Если не удалось перейти в WhatsApp:<br />
-      1. Нажмите на три точки справа вверху и выберите «Открыть в браузере» 📲<br />
-      2. Или напишите на номер:<br />
-      +7 700 333 99 04
+    <div class="terminal">
+        <div class="browser-hint">
+        </div>
+        
+        <h1>PRO PSP CONSOLE</h1>
+        <div class="divider"></div>
+        <div class="badge">ОГРАНИЧЕННАЯ ПАРТИЯ</div>
+        
+        <img src="https://getneoplay.com/cdn/shop/files/4-ezgif.com-video-to-gif-converter.gif?v=1745853777" alt="PSP Console" class="psp-gif">
+        
+        <div class="benefit">Прошитая PSP 128GB</div>
+        <div class="benefit">30+ консолей в 1 PSP</div>
+        <div class="benefit">20000+ игр в комплекте</div>
+        
+        <div class="divider"></div>
+        
+        <div>
+            <span class="old-price">100 000 ₸</span>
+            <span class="price">70 000 ₸</span>
+        </div>
+        
+        <a href="https://wa.me/77003339904" class="whatsapp-button">
+            <i class="fab fa-whatsapp"></i> ЗАКАЗАТЬ В WHATSAPP
+        </a>
+        
+        <div class="contact-note">
+            Если не удалось перейти в WhatsApp:<br>
+            1. Нажмите на три точки справа вверху и выберите «Открыть в браузере»<br>
+            2. Или напишите на номер:<br>
+            +7 700 333 99 04
+        </div>
+        
+        <div class="info">>> ТОВАР В НАЛИЧИИ <span class="cursor">_</span></div>
+        
+        <div class="divider"></div>
+        
+        <div class="benefit">Полная прошивка с возможностью добавления игр</div>
+        <div class="benefit">Гарантия 3 месяца</div>
+        <div class="benefit">Бесплатная доставка по всему Казахстану</div>
     </div>
-  </div>
-
-  <script>
-    // Добавляем микро-взаимодействия
-    document.querySelector('.whatsapp-button').addEventListener('mousedown', function() {
-      this.style.transform = 'translateY(2px)';
-      this.style.boxShadow = '0 2px 10px rgba(37, 211, 102, 0.3)';
-    });
-    
-    document.querySelector('.whatsapp-button').addEventListener('mouseup', function() {
-      this.style.transform = 'translateY(-2px)';
-      this.style.boxShadow = '0 6px 20px rgba(37, 211, 102, 0.4)';
-    });
-  </script>
 </body>
 </html>
