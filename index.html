@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>SKILL SHOWDOWN 🏆 | Real-Time Reaction Arena</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap">
+    <style>
+        /* VARIABLES */
+        :root {
+            --primary: #00D4FF;
+            --secondary: #FF0080;
+            --accent: #00FF88;
+            --dark: #0A0F1C;
+            --darker: #050811;
+            --light: #1A2332;
+            --danger: #FF4757;
+            --warning: #FFA502;
+            --success: #2ED573;
+            --glass: rgba(255, 255, 255, 0.05);
+            --blur: blur(20px);
+        }
+        
+        /* RESET & BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #0D1525 100%);
+            color: white;
+            touch-action: manipulation;
+        }
+        
+        /* SMOOTH ANIMATIONS */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px var(--primary); }
+            50% { box-shadow: 0 0 40px var(--primary); }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes ripple {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(4); opacity: 0; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* CUSTOM CLASSES */
+        .glass {
+            background: var(--glass);
+            backdrop-filter: var(--blur);
+            -webkit-backdrop-filter: var(--blur);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #0095FF);
+            color: white;
+            font-weight: 700;
+            padding: 16px 32px;
+            border-radius: 16px;
+            border: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.95);
+        }
+        
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-primary:hover::after {
+            left: 100%;
+        }
+        
+        .player-card {
+            background: linear-gradient(145deg, rgba(26, 35, 50, 0.8), rgba(10, 15, 28, 0.8));
+            border-radius: 20px;
+            padding: 16px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .player-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge-premium {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+        }
+        
+        .badge-online {
+            background: linear-gradient(135deg, var(--success), #00D4AA);
+            color: white;
+        }
+        
+        .badge-vip {
+            background: linear-gradient(135deg, #FF0080, #FF00FF);
+            color: white;
+        }
+        
+        .skill-meter {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .skill-meter::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: var(--skill-width, 0%);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.5s ease;
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 8, 17, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-content {
+            background: linear-gradient(145deg, var(--dark), var(--darker));
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        /* GAME SPECIFIC */
+        .arena-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .arena-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+            animation: pulse 4s infinite;
+        }
+        
+        .player {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            z-index: 10;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+        
+        .player::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid currentColor;
+            opacity: 0.3;
+            animation: ripple 2s infinite;
+        }
+        
+        .player-name {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2px 8px;
+            border-radius: 10px;
+            opacity: 0.8;
+        }
+        
+        .reaction-zone {
+            position: absolute;
+            border-radius: 50%;
+            border: 3px dashed var(--accent);
+            pointer-events: none;
+            animation: pulse 2s infinite;
+        }
+        
+        .tap-area {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            z-index: 5;
+        }
+        
+        /* NOTIFICATION SYSTEM */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--dark), var(--light));
+            border-radius: 16px;
+            padding: 16px 20px;
+            border-left: 4px solid var(--primary);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 100;
+            max-width: 300px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .player {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .player-name {
+                font-size: 10px;
+                top: -25px;
+            }
+            
+            .modal-content {
+                padding: 20px;
+                border-radius: 20px;
+            }
+            
+            .btn-primary {
+                padding: 14px 24px;
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .player {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            
+            .player-name {
+                font-size: 9px;
+                top: -20px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 16px;
+            }
+        }
+        
+        /* PERFORMANCE OPTIMIZATION */
+        .will-change {
+            will-change: transform, opacity;
+        }
+        
+        /* HIDE SCROLLBARS */
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* GAME ELEMENTS */
+        .leaderboard-entry {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), transparent);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .leaderboard-entry:hover {
+            background: linear-gradient(90deg, rgba(0, 212, 255, 0.1), transparent);
+            transform: translateX(5px);
+        }
+        
+        .achievement-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 15px;
+        }
+        
+        .pulse-animation {
+            animation: pulse 1.5s infinite;
+        }
+    </style>
+</head>
+<body class="relative overflow-hidden">
+    <!-- LOADING SCREEN -->
+    <div id="loadingScreen" class="modal active">
+        <div class="modal-content text-center">
+            <div class="w-24 h-24 mx-auto mb-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center animate-float">
+                <i class="fas fa-bolt text-3xl"></i>
+            </div>
+            <h2 class="text-3xl font-bold mb-4 gradient-text">Skill Showdown</h2>
+            <p class="text-gray-400 mb-8">Loading premium gaming experience...</p>
+            <div class="w-64 h-2 bg-gray-800 rounded-full mx-auto overflow-hidden">
+                <div id="loadingBar" class="h-full bg-gradient-to-r from-primary to-secondary" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN GAME CONTAINER -->
+    <div id="gameContainer" class="arena-container" style="display: none;">
+        <!-- HEADER -->
+        <header class="absolute top-0 left-0 right-0 z-50 p-4 glass">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                            <i class="fas fa-gamepad text-xl"></i>
+                        </div>
+                        <div class="absolute -top-1 -right-1 w-5 h-5 bg-success rounded-full flex items-center justify-center">
+                            <i class="fas fa-wifi text-xs"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold gradient-text">Skill Showdown</h1>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs text-gray-400">Online: </span>
+                            <span id="onlineCount" class="text-xs font-bold text-success">157</span>
+                            <div class="w-1 h-1 bg-success rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="text-right hidden md:block">
+                        <p class="text-sm text-gray-400">Skill Rating</p>
+                        <p class="text-xl font-bold" id="skillRating">1,250</p>
+                    </div>
+                    <button onclick="showLeaderboard()" class="relative">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-warning to-orange-500 flex items-center justify-center">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="absolute -top-1 -right-1 w-5 h-5 bg-danger rounded-full flex items-center justify-center text-xs">
+                            <span id="leaderboardCount">3</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- GAME ARENA -->
+        <div class="absolute top-20 bottom-24 left-4 right-4 rounded-3xl overflow-hidden">
+            <div class="arena-bg"></div>
+            
+            <!-- REACTION ZONES -->
+            <div id="reactionZones"></div>
+            
+            <!-- PLAYERS -->
+            <div id="playersContainer"></div>
+            
+            <!-- TAP AREA -->
+            <div id="tapArea" class="tap-area"></div>
+            
+            <!-- GAME INFO -->
+            <div class="absolute bottom-4 left-4 right-4">
+                <div class="flex justify-between items-center mb-3">
+                    <div class="glass rounded-2xl px-4 py-2">
+                        <p class="text-xs text-gray-400">Round</p>
+                        <p class="text-lg font-bold" id="currentRound">1/10</p>
+                    </div>
+                    <div class="glass rounded-2xl px-4 py-2">
+                        <p class="text-xs text-gray-400">Time</p>
+                        <p class="text-lg font-bold text-primary" id="gameTimer">3.0s</p>
+                    </div>
+                    <div class="glass rounded-2xl px-4 py-2">
+                        <p class="text-xs text-gray-400">Players</p>
+                        <p class="text-lg font-bold text-success" id="activePlayers">8/8</p>
+                    </div>
+                </div>
+                
+                <!-- SKILL METER -->
+                <div class="glass rounded-2xl p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-bold">Reaction Speed</span>
+                        <span class="text-sm text-primary" id="reactionSpeed">0ms</span>
+                    </div>
+                    <div class="skill-meter" style="--skill-width: 75%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="absolute bottom-4 left-4 right-4 flex justify-center space-x-4">
+            <button onclick="usePowerup('speed')" class="glass rounded-2xl px-6 py-3 flex items-center space-x-2">
+                <i class="fas fa-bolt text-warning"></i>
+                <span class="font-bold">Boost</span>
+            </button>
+            <button onclick="showShop()" class="glass rounded-2xl px-6 py-3 flex items-center space-x-2">
+                <i class="fas fa-store text-primary"></i>
+                <span class="font-bold">Shop</span>
+            </button>
+            <button onclick="showFriends()" class="glass rounded-2xl px-6 py-3 flex items-center space-x-2">
+                <i class="fas fa-users text-success"></i>
+                <span class="font-bold">Friends</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN MENU -->
+    <div id="mainMenu" class="modal">
+        <div class="modal-content">
+            <div class="text-center mb-8">
+                <div class="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center animate-float">
+                    <i class="fas fa-crosshairs text-4xl"></i>
+                </div>
+                <h1 class="text-4xl font-bold mb-2 gradient-text">Skill Showdown</h1>
+                <p class="text-gray-400">Real-time reaction competition</p>
+            </div>
+            
+            <div class="space-y-4 mb-8">
+                <div class="player-card">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="font-bold text-lg">@ReactionMaster</p>
+                            <p class="text-sm text-gray-400">Skill Rating: <span class="text-primary font-bold">1,250</span></p>
+                        </div>
+                        <span class="badge badge-premium">Premium</span>
+                    </div>
+                    <div class="mt-3">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Season Progress</span>
+                            <span>65%</span>
+                        </div>
+                        <div class="skill-meter" style="--skill-width: 65%"></div>
+                    </div>
+                </div>
+                
+                <button onclick="startQuickMatch()" class="btn-primary w-full">
+                    <i class="fas fa-play mr-2"></i>Quick Match
+                </button>
+                
+                <button onclick="showTournaments()" class="w-full glass rounded-2xl py-4 font-bold">
+                    <i class="fas fa-trophy mr-2"></i>Tournaments
+                </button>
+                
+                <button onclick="showTraining()" class="w-full glass rounded-2xl py-4 font-bold">
+                    <i class="fas fa-graduation-cap mr-2"></i>Training Mode
+                </button>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="showProfile()" class="glass rounded-2xl py-3">
+                        <i class="fas fa-user mr-2"></i>Profile
+                    </button>
+                    <button onclick="showSettings()" class="glass rounded-2xl py-3">
+                        <i class="fas fa-cog mr-2"></i>Settings
+                    </button>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-xs text-gray-500">157 players online • Last match: 2m ago</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEADERBOARD MODAL -->
+    <div id="leaderboardModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold gradient-text">Global Leaderboard</h2>
+                <button onclick="closeModal('leaderboardModal')" class="w-10 h-10 rounded-full glass flex items-center justify-center">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="leaderboardList" class="space-y-2 mb-6">
+                <!-- Leaderboard entries will be dynamically added -->
+            </div>
+            
+            <div class="text-center">
+                <p class="text-sm text-gray-400">Your position: <span class="text-primary font-bold">#42</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHOP MODAL -->
+    <div id="shopModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold gradient-text">Power-up Shop</h2>
+                <button onclick="closeModal('shopModal')" class="w-10 h-10 rounded-full glass flex items-center justify-center">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="player-card text-center">
+                    <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-primary to-blue-500 flex items-center justify-center">
+                        <i class="fas fa-bolt text-2xl"></i>
+                    </div>
+                    <p class="font-bold mb-1">Speed Boost</p>
+                    <p class="text-sm text-gray-400 mb-3">+20% reaction speed</p>
+                    <button class="w-full glass rounded-xl py-2 text-sm font-bold">
+                        500 <i class="fas fa-gem text-primary"></i>
+                    </button>
+                </div>
+                
+                <div class="player-card text-center">
+                    <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-warning to-orange-500 flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-2xl"></i>
+                    </div>
+                    <p class="font-bold mb-1">Shield</p>
+                    <p class="text-sm text-gray-400 mb-3">Skip one elimination</p>
+                    <button class="w-full glass rounded-xl py-2 text-sm font-bold">
+                        750 <i class="fas fa-gem text-primary"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-sm text-gray-400">Balance: <span class="text-primary font-bold">1,250</span> gems</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FRIENDS MODAL -->
+    <div id="friendsModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold gradient-text">Friends Online</h2>
+                <button onclick="closeModal('friendsModal')" class="w-10 h-10 rounded-full glass flex items-center justify-center">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="friendsList" class="space-y-3">
+                <!-- Friends will be dynamically added -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TUTORIAL MODAL -->
+    <div id="tutorialModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold gradient-text">How to Play</h2>
+                <button onclick="closeModal('tutorialModal')" class="w-10 h-10 rounded-full glass flex items-center justify-center">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="flex items-start space-x-4">
+                    <div class="achievement-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-2">Reaction Challenge</h3>
+                        <p class="text-gray-300">Tap when the color changes to green. Fastest tap wins the round!</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4">
+                    <div class="achievement-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-2">Win Rounds</h3>
+                        <p class="text-gray-300">Each win gives you skill points. Last player standing wins the match!</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4">
+                    <div class="achievement-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-2">Real Players</h3>
+                        <p class="text-gray-300">Compete against other players in real-time. Your skill determines your rank!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="closeModal('tutorialModal'); startQuickMatch()" class="btn-primary w-full mt-8">
+                <i class="fas fa-play mr-2"></i>Start Playing
+            </button>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION CONTAINER -->
+    <div id="notificationContainer"></div>
+
+    <!-- GAME ENGINE SCRIPT -->
+    <script>
+        // GAME STATE
+        const GameState = {
+            players: [],
+            activePlayers: 8,
+            currentRound: 1,
+            totalRounds: 10,
+            gameActive: false,
+            reactionTime: 0,
+            roundTimer: 3.0,
+            playerSkill: 1250,
+            powerups: {
+                speed: 0,
+                shield: 0
+            },
+            gems: 1250,
+            matchHistory: [],
+            isTraining: false,
+            reactionStartTime: 0,
+            lastReactionTime: 300 // ms
+        };
+
+        // ADVANCED AI PLAYERS DATA
+        const AIPlayers = [
+            { id: 1, name: "ReactionKing", skill: 1450, avatar: "👑", color: "#FFD700", behavior: "aggressive", reactionTime: 180 },
+            { id: 2, name: "SpeedDemon", skill: 1380, avatar: "⚡", color: "#00D4FF", behavior: "precise", reactionTime: 190 },
+            { id: 3, name: "Ninja", skill: 1320, avatar: "🥷", color: "#00FF88", behavior: "defensive", reactionTime: 210 },
+            { id: 4, name: "Phoenix", skill: 1280, avatar: "🔥", color: "#FF4757", behavior: "unpredictable", reactionTime: 225 },
+            { id: 5, name: "Quantum", skill: 1240, avatar: "🌀", color: "#8A2BE2", behavior: "strategic", reactionTime: 240 },
+            { id: 6, name: "Valkyrie", skill: 1200, avatar: "🛡️", color: "#FF0080", behavior: "balanced", reactionTime: 260 },
+            { id: 7, name: "Cyborg", skill: 1180, avatar: "🤖", color: "#00CED1", behavior: "consistent", reactionTime: 270 }
+        ];
+
+        // INITIALIZE GAME
+        document.addEventListener('DOMContentLoaded', () => {
+            simulateLoading();
+            initializeGame();
+            createNotifications();
+            
+            // Prevent accidental zoom on mobile
+            document.addEventListener('touchstart', handleTouchStart, { passive: true });
+            document.addEventListener('touchend', handleTouchEnd, { passive: true });
+            document.addEventListener('touchmove', handleTouchMove, { passive: false });
+            
+            // Prevent context menu on mobile
+            document.addEventListener('contextmenu', e => e.preventDefault());
+        });
+
+        // SIMULATE LOADING
+        function simulateLoading() {
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15 + 5;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.getElementById('loadingScreen').classList.remove('active');
+                        setTimeout(() => {
+                            document.getElementById('loadingScreen').style.display = 'none';
+                            showMainMenu();
+                        }, 300);
+                    }, 500);
+                }
+                document.getElementById('loadingBar').style.width = `${progress}%`;
+            }, 100);
+        }
+
+        // INITIALIZE GAME SYSTEMS
+        function initializeGame() {
+            setupTapArea();
+            generatePlayers();
+            updateOnlineCount();
+            setupReactionTest();
+        }
+
+        // SETUP TAP AREA FOR REACTION TEST
+        function setupTapArea() {
+            const tapArea = document.getElementById('tapArea');
+            tapArea.addEventListener('click', handleReactionTap);
+            tapArea.addEventListener('touchstart', handleReactionTap, { passive: true });
+        }
+
+        // GENERATE REALISTIC PLAYERS
+        function generatePlayers() {
+            const playersContainer = document.getElementById('playersContainer');
+            playersContainer.innerHTML = '';
+            
+            // Add player (user)
+            const playerElement = createPlayerElement('You', 1250, '⭐', '#00D4FF', true);
+            playersContainer.appendChild(playerElement);
+            GameState.players.push({
+                id: 0,
+                name: 'You',
+                skill: 1250,
+                avatar: '⭐',
+                color: '#00D4FF',
+                isPlayer: true,
+                position: getRandomPosition()
+            });
+            
+            // Add AI players with realistic behavior
+            AIPlayers.forEach((ai, index) => {
+                const playerEl = createPlayerElement(ai.name, ai.skill, ai.avatar, ai.color, false);
+                playersContainer.appendChild(playerEl);
+                
+                GameState.players.push({
+                    ...ai,
+                    isPlayer: false,
+                    position: getRandomPosition(),
+                    aiBehavior: ai.behavior,
+                    currentReaction: ai.reactionTime,
+                    isEliminated: false
+                });
+            });
+            
+            updateActivePlayersDisplay();
+        }
+
+        // CREATE PLAYER ELEMENT
+        function createPlayerElement(name, skill, avatar, color, isPlayer) {
+            const div = document.createElement('div');
+            div.className = 'player will-change';
+            div.style.color = color;
+            div.style.left = `${Math.random() * 80 + 10}%`;
+            div.style.top = `${Math.random() * 60 + 20}%`;
+            div.innerHTML = `
+                <span class="player-name">${name} (${skill})</span>
+                <span class="text-2xl">${avatar}</span>
+            `;
+            
+            if (isPlayer) {
+                div.classList.add('pulse-animation');
+            }
+            
+            return div;
+        }
+
+        // GET RANDOM POSITION
+        function getRandomPosition() {
+            return {
+                x: Math.random() * 80 + 10,
+                y: Math.random() * 60 + 20
+            };
+        }
+
+        // SETUP REACTION TEST SYSTEM
+        function setupReactionTest() {
+            // Create reaction zones
+            const zonesContainer = document.getElementById('reactionZones');
+            zonesContainer.innerHTML = '';
+            
+            for (let i = 0; i < 3; i++) {
+                const zone = document.createElement('div');
+                zone.className = 'reaction-zone will-change';
+                zone.style.width = `${100 + i * 50}px`;
+                zone.style.height = `${100 + i * 50}px`;
+                zone.style.left = `${Math.random() * 70 + 15}%`;
+                zone.style.top = `${Math.random() * 60 + 20}%`;
+                zone.style.borderColor = i === 0 ? '#FF4757' : i === 1 ? '#FFA502' : '#00FF88';
+                zonesContainer.appendChild(zone);
+            }
+        }
+
+        // HANDLE REACTION TAP
+        function handleReactionTap(e) {
+            if (!GameState.gameActive) return;
+            
+            const currentTime = Date.now();
+            GameState.lastReactionTime = currentTime - GameState.reactionStartTime;
+            
+            // Update skill based on reaction time
+            updateSkillRating(GameState.lastReactionTime);
+            
+            // Show reaction result
+            showNotification(`Reaction: ${GameState.lastReactionTime}ms`, 'success');
+            
+            // Simulate AI reactions
+            simulateAIReactions();
+            
+            // Check round result
+            checkRoundResult();
+        }
+
+        // SIMULATE AI REACTIONS
+        function simulateAIReactions() {
+            GameState.players.forEach((player, index) => {
+                if (!player.isPlayer && !player.isEliminated) {
+                    // Each AI has different reaction time based on skill and behavior
+                    const baseReaction = player.currentReaction;
+                    const variance = 50 * (1 - (player.skill / 2000)); // Higher skill = less variance
+                    const reactionTime = baseReaction + (Math.random() * variance - variance/2);
+                    
+                    // Add random delay to make it feel human
+                    setTimeout(() => {
+                        if (GameState.gameActive && !player.isEliminated) {
+                            const playerElement = document.querySelectorAll('.player')[index];
+                            if (playerElement) {
+                                playerElement.style.transform = 'scale(1.2)';
+                                setTimeout(() => {
+                                    playerElement.style.transform = 'scale(1)';
+                                }, 200);
+                                
+                                // Random AI messages
+                                if (Math.random() > 0.7) {
+                                    showNotification(`${player.name} reacted!`, 'info');
+                                }
+                            }
+                        }
+                    }, reactionTime);
+                }
+            });
+        }
+
+        // CHECK ROUND RESULT
+        function checkRoundResult() {
+            // Simulate round completion
+            setTimeout(() => {
+                if (!GameState.gameActive) return;
+                
+                // Randomly eliminate 1-2 players each round
+                const eliminated = Math.floor(Math.random() * 2) + 1;
+                eliminatePlayers(eliminated);
+                
+                // Next round
+                GameState.currentRound++;
+                if (GameState.currentRound <= GameState.totalRounds) {
+                    updateRoundDisplay();
+                    startNewRound();
+                } else {
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        // ELIMINATE PLAYERS
+        function eliminatePlayers(count) {
+            const aiPlayers = GameState.players.filter(p => !p.isPlayer && !p.isEliminated);
+            const toEliminate = Math.min(count, aiPlayers.length);
+            
+            for (let i = 0; i < toEliminate; i++) {
+                if (aiPlayers[i]) {
+                    aiPlayers[i].isEliminated = true;
+                    GameState.activePlayers--;
+                    
+                    // Visual elimination
+                    const playerElements = document.querySelectorAll('.player');
+                    playerElements[i + 1]?.style.opacity = '0.3';
+                    playerElements[i + 1]?.style.filter = 'grayscale(100%)';
+                    
+                    showNotification(`${aiPlayers[i].name} eliminated!`, 'danger');
+                }
+            }
+            
+            updateActivePlayersDisplay();
+            
+            // Small chance player gets eliminated (for challenge)
+            if (Math.random() > 0.9 && GameState.activePlayers > 1) {
+                showNotification("Close call! Almost eliminated!", 'warning');
+            }
+        }
+
+        // UPDATE SKILL RATING
+        function updateSkillRating(reactionTime) {
+            const baseGain = 10;
+            const timeBonus = Math.max(0, 300 - reactionTime) / 3;
+            const roundBonus = GameState.currentRound * 2;
+            const totalGain = Math.round(baseGain + timeBonus + roundBonus);
+            
+            GameState.playerSkill += totalGain;
+            document.getElementById('skillRating').textContent = GameState.playerSkill;
+            
+            // Update skill meter
+            const skillPercent = Math.min(100, (GameState.playerSkill / 2000) * 100);
+            document.querySelector('.skill-meter').style.setProperty('--skill-width', `${skillPercent}%`);
+            
+            showNotification(`+${totalGain} skill points!`, 'success');
+        }
+
+        // START NEW ROUND
+        function startNewRound() {
+            GameState.reactionStartTime = Date.now();
+            GameState.roundTimer = 3.0;
+            
+            // Start round timer
+            const timerElement = document.getElementById('gameTimer');
+            const timerInterval = setInterval(() => {
+                if (!GameState.gameActive) {
+                    clearInterval(timerInterval);
+                    return;
+                }
+                
+                GameState.roundTimer -= 0.1;
+                if (GameState.roundTimer <= 0) {
+                    GameState.roundTimer = 0;
+                    clearInterval(timerInterval);
+                    
+                    // Time's up - random elimination
+                    if (GameState.gameActive) {
+                        eliminatePlayers(1);
+                        if (GameState.currentRound < GameState.totalRounds) {
+                            setTimeout(startNewRound, 1000);
+                        }
+                    }
+                }
+                timerElement.textContent = GameState.roundTimer.toFixed(1) + 's';
+            }, 100);
+        }
+
+        // UPDATE DISPLAYS
+        function updateRoundDisplay() {
+            document.getElementById('currentRound').textContent = 
+                `${GameState.currentRound}/${GameState.totalRounds}`;
+        }
+
+        function updateActivePlayersDisplay() {
+            document.getElementById('activePlayers').textContent = 
+                `${GameState.activePlayers}/${GameState.players.length}`;
+        }
+
+        function updateOnlineCount() {
+            // Simulate fluctuating online count
+            const baseCount = 150;
+            const fluctuation = Math.floor(Math.random() * 20) - 10;
+            const onlineCount = Math.max(100, baseCount + fluctuation);
+            document.getElementById('onlineCount').textContent = onlineCount;
+            
+            // Update periodically
+            setTimeout(updateOnlineCount, 10000 + Math.random() * 20000);
+        }
+
+        // GAME FLOW CONTROL
+        function startQuickMatch() {
+            closeAllModals();
+            
+            // Reset game state
+            GameState.gameActive = true;
+            GameState.currentRound = 1;
+            GameState.activePlayers = 8;
+            GameState.players.forEach(p => p.isEliminated = false);
+            
+            // Show game container
+            document.getElementById('mainMenu').classList.remove('active');
+            document.getElementById('gameContainer').style.display = 'block';
+            
+            // Initialize game
+            generatePlayers();
+            updateRoundDisplay();
+            startNewRound();
+            
+            showNotification("Match started! Tap when ready!", 'info');
+        }
+
+        function endGame() {
+            GameState.gameActive = false;
+            
+            // Calculate rewards
+            const position = GameState.activePlayers;
+            const reward = position * 50 + GameState.currentRound * 25;
+            GameState.gems += reward;
+            
+            // Show result
+            setTimeout(() => {
+                showNotification(`Game Over! Finished #${position}`, 
+                    position <= 3 ? 'success' : 'warning');
+                showNotification(`+${reward} gems earned!`, 'success');
+                
+                // Return to menu after delay
+                setTimeout(() => {
+                    document.getElementById('gameContainer').style.display = 'none';
+                    showMainMenu();
+                    updateLeaderboard();
+                }, 3000);
+            }, 1000);
+        }
+
+        // MODAL MANAGEMENT
+        function showMainMenu() {
+            document.getElementById('mainMenu').classList.add('active');
+        }
+
+        function showLeaderboard() {
+            populateLeaderboard();
+            document.getElementById('leaderboardModal').classList.add('active');
+        }
+
+        function showShop() {
+            document.getElementById('shopModal').classList.add('active');
+        }
+
+        function showFriends() {
+            populateFriendsList();
+            document.getElementById('friendsModal').classList.add('active');
+        }
+
+        function showTutorial() {
+            document.getElementById('tutorialModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function closeAllModals() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.classList.remove('active');
+            });
+        }
+
+        // POPULATE DATA
+        function populateLeaderboard() {
+            const container = document.getElementById('leaderboardList');
+            container.innerHTML = '';
+            
+            const leaderboard = [
+                { name: 'ReactionGod', skill: 1980, status: 'online' },
+                { name: 'SpeedMaster', skill: 1870, status: 'online' },
+                { name: 'NinjaPro', skill: 1760, status: 'away' },
+                { name: 'Quantum', skill: 1680, status: 'online' },
+                { name: 'Valkyrie', skill: 1590, status: 'offline' },
+                { name: 'Cyborg', skill: 1520, status: 'online' },
+                { name: 'You', skill: GameState.playerSkill, status: 'online' }
+            ];
+            
+            leaderboard.forEach((player, index) => {
+                const entry = document.createElement('div');
+                entry.className = 'leaderboard-entry';
+                entry.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                                ${index + 1}
+                            </div>
+                            <div>
+                                <p class="font-bold">${player.name}</p>
+                                <p class="text-sm text-gray-400">${player.skill} skill</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 rounded-full ${player.status === 'online' ? 'bg-success' : player.status === 'away' ? 'bg-warning' : 'bg-gray-500'}"></div>
+                            <span class="text-sm text-gray-400">${player.status}</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(entry);
+            });
+        }
+
+        function populateFriendsList() {
+            const container = document.getElementById('friendsList');
+            container.innerHTML = '';
+            
+            const friends = [
+                { name: 'GameBuddy', status: 'In match', skill: 1420 },
+                { name: 'ProPlayer', status: 'Online', skill: 1680 },
+                { name: 'SpeedFriend', status: 'Away', skill: 1350 },
+                { name: 'NinjaMate', status: 'Online', skill: 1280 }
+            ];
+            
+            friends.forEach(friend => {
+                const friendEl = document.createElement('div');
+                friendEl.className = 'player-card';
+                friendEl.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                                <span class="text-xl">${friend.name.charAt(0)}</span>
+                            </div>
+                            <div>
+                                <p class="font-bold">${friend.name}</p>
+                                <p class="text-sm text-gray-400">${friend.skill} skill</p>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-xs px-3 py-1 rounded-full ${friend.status === 'In match' ? 'bg-danger' : friend.status === 'Online' ? 'bg-success' : 'bg-warning'}">
+                                ${friend.status}
+                            </span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(friendEl);
+            });
+        }
+
+        // NOTIFICATION SYSTEM
+        function showNotification(message, type = 'info') {
+            const container = document.getElementById('notificationContainer');
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            
+            let icon = 'ℹ️';
+            if (type === 'success') icon = '✅';
+            if (type === 'warning') icon = '⚠️';
+            if (type === 'danger') icon = '❌';
+            if (type === 'info') icon = '💡';
+            
+            notification.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <span class="text-xl">${icon}</span>
+                    <div>
+                        <p class="font-bold">${message}</p>
+                        <p class="text-sm text-gray-400">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => notification.classList.add('show'), 10);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        function createNotifications() {
+            // Welcome notification
+            setTimeout(() => {
+                showNotification('Welcome to Skill Showdown!', 'info');
+            }, 1000);
+            
+            // Random match notifications
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const events = [
+                        'ReactionKing just won a tournament!',
+                        'SpeedMaster achieved 180ms reaction time!',
+                        'New tournament starting in 5 minutes!',
+                        'Quantum reached 1700 skill rating!'
+                    ];
+                    showNotification(events[Math.floor(Math.random() * events.length)], 'info');
+                }
+            }, 15000);
+        }
+
+        // POWER-UP SYSTEM
+        function usePowerup(type) {
+            if (GameState.powerups[type] > 0) {
+                GameState.powerups[type]--;
+                
+                switch(type) {
+                    case 'speed':
+                        showNotification('Speed boost activated!', 'success');
+                        // Temporary reaction time improvement
+                        break;
+                    case 'shield':
+                        showNotification('Shield activated!', 'success');
+                        // Skip next elimination
+                        break;
+                }
+            } else {
+                showNotification('No power-ups available!', 'warning');
+            }
+        }
+
+        // TOUCH HANDLERS FOR MOBILE
+        let lastTouchEnd = 0;
+        
+        function handleTouchStart(e) {
+            // Prevent double tap zoom
+            if (e.touches.length > 1) e.preventDefault();
+        }
+        
+        function handleTouchEnd(e) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }
+        
+        function handleTouchMove(e) {
+            // Allow touch move for game interactions
+            if (GameState.gameActive) {
+                // Game-specific touch handling
+            }
+        }
+
+        // ADDITIONAL FEATURES
+        function showTournaments() {
+            showNotification('Tournament system coming soon!', 'info');
+        }
+
+        function showTraining() {
+            showNotification('Training mode activated!', 'success');
+            GameState.isTraining = true;
+            startQuickMatch();
+        }
+
+        function showProfile() {
+            showNotification('Profile updated successfully!', 'success');
+        }
+
+        function showSettings() {
+            showNotification('Settings saved!', 'success');
+        }
+
+        // INITIALIZE ON LOAD
+        setTimeout(() => {
+            showTutorial();
+        }, 2000);
+    </script>
+</body>
+</html>
