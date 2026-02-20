@@ -204,11 +204,13 @@
         }
 
         /* =================================================================
-           СИНИЙ БЛОК (Building on Trust)
+           СИНИЙ БЛОК (Building on Trust) — скруглены нижние углы
            ================================================================= */
         .building-trust-section {
             background-color: var(--color-bg-blue);
             padding: 60px var(--container-padding);
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
         }
         .helmet-placeholder {
             width: 120px;
@@ -220,12 +222,16 @@
         }
 
         /* =================================================================
-           СВЕТЛО-СИНИЙ БЛОК (Assets)
+           СВЕТЛО-СИНИЙ БЛОК (Assets) — скруглены и верх, и низ
            ================================================================= */
         .assets-section {
             background: linear-gradient(180deg, var(--color-bg-lightblue-start) 0%, var(--color-bg-lightblue-end) 100%);
             padding: 60px var(--container-padding);
             color: #fff;
+            border-radius: 50px;
+            margin-top: -20px; /* небольшой нахлёст для плотного прилегания */
+            position: relative;
+            z-index: 1;
         }
         .assets-section h2 { color: #fff; }
         .assets-section p { color: rgba(255,255,255,0.8); }
@@ -283,11 +289,15 @@
         }
 
         /* =================================================================
-           РОЗОВЫЙ БЛОК (dApps)
+           РОЗОВЫЙ БЛОК (dApps) — скруглены и верх, и низ
            ================================================================= */
         .dapps-section {
             background: linear-gradient(180deg, var(--color-bg-pink-start) 0%, var(--color-bg-pink-end) 100%);
             padding: 60px var(--container-padding);
+            border-radius: 50px;
+            margin-top: -20px;
+            position: relative;
+            z-index: 2;
         }
         .feature-card {
             background: #fff;
@@ -306,11 +316,15 @@
         }
 
         /* =================================================================
-           ЗЕЛЕНО-ЖЕЛТЫЙ БЛОК (Security)
+           ЗЕЛЕНО-ЖЕЛТЫЙ БЛОК (Security) — скруглены и верх, и низ
            ================================================================= */
         .security-section {
             background: linear-gradient(180deg, var(--color-bg-green-start) 0%, var(--color-bg-green-end) 100%);
             padding: 60px var(--container-padding);
+            border-radius: 50px;
+            margin-top: -20px;
+            position: relative;
+            z-index: 3;
         }
         .security-card-img {
             width: 80px;
@@ -321,7 +335,8 @@
         }
 
         /* =================================================================
-           БЛОК РАСШИРЕНИЯ (Web3 Extension)
+           БЛОК РАСШИРЕНИЯ (Web3 Extension) — больше не нужны скругления,
+           т.к. он не цветной (background не задан), оставляем как есть.
            ================================================================= */
         .web3-extension-section {
             padding: 60px var(--container-padding);
@@ -356,7 +371,7 @@
         }
 
         /* =================================================================
-           БЛОК СООБЩЕСТВА (Community)
+           БЛОК СООБЩЕСТВА (Community) — не цветной, без скруглений
            ================================================================= */
         .community-section {
             padding: 60px var(--container-padding);
