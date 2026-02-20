@@ -15,7 +15,7 @@
             --color-text: #5E6778;
 
             /* Фоны секций (оригинальные) */
-            --color-bg-blue: #0600fe;        /* изменено с #0532C8 на #0600fe */
+            --color-bg-blue: #0532C8;               /* возвращено исходное значение (не используется) */
             --color-bg-lightblue-start: #1BA1FF;
             --color-bg-lightblue-end: #0072FF;
             --color-bg-pink-start: #FFD1E8;
@@ -31,8 +31,6 @@
             --container-padding: 20px;
             --border-radius-card: 16px;
             --border-radius-btn: 50px;
-
-            /* hero больше не имеет фона — удалён */
         }
 
         /* Сброс стандартных отступов */
@@ -83,7 +81,7 @@
         .header-logo, .menu-icon, .wallet-screenshot-img {
             cursor: pointer;
             transition: opacity 0.2s;
-            display: inline-block;  /* для единообразия */
+            display: inline-block;
         }
         .img-placeholder:hover, .icon-placeholder:hover,
         .helmet-placeholder:hover, .asset-icon:hover,
@@ -143,20 +141,16 @@
         .hero-section {
             padding-top: 20px;
             padding-bottom: 40px;
-            /* background полностью удалён */
         }
 
-        /* Изображение в hero — без тени и обводки, ровно под кнопкой */
         .wallet-screenshot-img {
             display: block;
             max-width: 100%;
             height: auto;
             border-radius: 24px;
-            margin-top: 30px;      /* как было изначально */
+            margin-top: 30px;
             margin-bottom: 0;
-            /* тень и border убраны */
         }
-        /* скрываем старый плейсхолдер, если он вдруг появится */
         .hero-image-container {
             display: none;
         }
@@ -188,7 +182,7 @@
         }
 
         /* =================================================================
-           ПРОМО-БАННЕР
+           ПРОМО-БАННЕР (образец закругления)
            ================================================================= */
         .promo-banner {
             height: 100px;
@@ -204,16 +198,21 @@
         }
 
         /* =================================================================
-           СИНИЙ БЛОК (Building on Trust) — скруглены нижние углы
-           фон теперь #0600fe
+           СИНИЙ БЛОК (Building on Trust) — теперь как промо-баннер:
+           - закруглён (border-radius: 12px)
+           - белый фон, чёрный текст
+           - картинка сверху
+           - никаких скруглений нижних углов отдельно
            ================================================================= */
         .building-trust-section {
-            background-color: #0600fe;        /* прямое значение, но можно и var(--color-bg-blue) */
-            padding: 60px var(--container-padding);
-            border-bottom-left-radius: 50px;
-            border-bottom-right-radius: 50px;
+            background-color: #ffffff;           /* белый фон */
+            padding: 40px var(--container-padding);  /* чуть уменьшен padding, чтобы фото было ближе к верху */
+            border-radius: 12px;                 /* как у промо-баннера */
+            margin: 20px var(--container-padding); /* такие же отступы как у .promo-banner */
+            /* убраны нижние скругления, теперь одинаковый радиус со всех сторон */
         }
-        /* helmet-placeholder заменён на SVG-ссылку */
+
+        /* контейнер ссылки с фото — убраны все рамки/тени, фон прозрачный */
         .building-trust-section .helmet-placeholder {
             width: 120px;
             height: 120px;
@@ -221,20 +220,32 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: transparent;           /* полностью прозрачный */
-            border: none;                      /* убрана обводка */
-            box-shadow: none;                  /* убрана тень */
-            clip-path: none;                    /* убираем старую маску */
-            border-radius: 0;                   /* никаких скруглений */
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            clip-path: none;
+            border-radius: 0;
         }
-        /* картинка внутри ссылки тоже без рамок */
         .building-trust-section .helmet-placeholder img {
             display: block;
             width: 100%;
             height: 100%;
-            object-fit: contain;               /* чтобы SVG корректно вписался */
+            object-fit: contain;
             border: none;
             box-shadow: none;
+            background: transparent;
+        }
+
+        /* текст внутри блока — чёрный (сброс белого) */
+        .building-trust-section h2,
+        .building-trust-section p {
+            color: var(--color-dark);  /* тёмный цвет для контраста на белом */
+        }
+        /* кнопка теперь синяя обводка на белом фоне — стандартный btn-outline (уже есть) */
+        .building-trust-section .btn-outline-white {
+            /* преобразуем в обычную outline, т.к. фон белый */
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
             background: transparent;
         }
 
@@ -246,7 +257,7 @@
             padding: 60px var(--container-padding);
             color: #fff;
             border-radius: 50px;
-            margin-top: -20px; /* небольшой нахлёст для плотного прилегания */
+            margin-top: -20px;
             position: relative;
             z-index: 1;
         }
@@ -352,8 +363,7 @@
         }
 
         /* =================================================================
-           БЛОК РАСШИРЕНИЯ (Web3 Extension) — больше не нужны скругления,
-           т.к. он не цветной (background не задан), оставляем как есть.
+           БЛОК РАСШИРЕНИЯ (Web3 Extension)
            ================================================================= */
         .web3-extension-section {
             padding: 60px var(--container-padding);
@@ -388,11 +398,21 @@
         }
 
         /* =================================================================
-           БЛОК СООБЩЕСТВА (Community) — не цветной, без скруглений
+           БЛОК СООБЩЕСТВА (Community) — теперь тоже имеет закруглённый фон
            ================================================================= */
         .community-section {
             padding: 60px var(--container-padding);
-            background: #f9f9f9;
+            /* добавляем градиентный фон как у соседей, чтобы были закругления */
+            background: linear-gradient(180deg, #f9f9f9 0%, #eaeef5 100%); /* нейтральный градиент */
+            border-radius: 50px;               /* закругления как у других блоков */
+            margin-top: -20px;                  /* нахлёст как везде */
+            position: relative;
+            z-index: 4;
+        }
+        /* текст остаётся читаемым */
+        .community-section h2,
+        .community-section p {
+            color: var(--color-dark);
         }
         .testimonial-card {
             background: #fff;
@@ -512,17 +532,17 @@
         </div>
     </section>
 
-    <!-- Promo Banner -->
+    <!-- Promo Banner (образец скругления) -->
     <div class="promo-banner">CASH DEPOSITS NOW LIVE</div>
 
-    <!-- Building on Trust (синий) фон #0600fe, фото заменено на SVG -->
-    <section class="building-trust-section text-white">
+    <!-- Building on Trust — теперь как промо-баннер: белый фон, чёрный текст, скругление 12px, фото сверху -->
+    <section class="building-trust-section">
         <a href="#" class="helmet-placeholder">
             <img src="https://trustwallet.com/_next/static/media/raw.b373ab3f.svg" alt="Trust logo" style="width:100%; height:100%; object-fit:contain; border:none; box-shadow:none; background:transparent;">
         </a>
         <h2>Building on Trust</h2>
-        <p class="text-white">We know that working together as a community is better for everyone. Our platform enables blockchain developers to build their dApps and wallets natively and connect with millions of users, without having to worry about the low-level implementation details.</p>
-        <button class="btn btn-outline-white">Check out our Developer docs</button>
+        <p>We know that working together as a community is better for everyone. Our platform enables blockchain developers to build their dApps and wallets natively and connect with millions of users, without having to worry about the low-level implementation details.</p>
+        <button class="btn btn-outline">Check out our Developer docs</button>  <!-- изменён класс с btn-outline-white на btn-outline -->
     </section>
 
     <!-- Assets (светло-синий) -->
@@ -613,7 +633,7 @@
         <button class="btn btn-primary full-width">Download Wallet app</button>
     </section>
 
-    <!-- Community -->
+    <!-- Community — теперь с закруглённым фоном (50px) и нахлёстом, как требовалось -->
     <section class="community-section">
         <div class="container">
             <h2>Enjoy a Web3 experience powered by community</h2>
