@@ -130,15 +130,15 @@
         .hero-image-container::before { width: 140px; height: 250px; top: 20px; left: 20px; z-index: 1; transform: rotate(-10deg); background: #ddd;}
         .hero-image-container::after { width: 160px; height: 280px; top: 0; right: 30px; z-index: 2; background: #eee;}
         
-        /* NEW: Style for the specific screenshot image */
+        /* Style for the specific screenshot image - без тени и обводки, поднято выше */
         .wallet-screenshot-img {
             display: block;
             max-width: 100%;
             height: auto;
             border-radius: 24px;
-            margin: 30px auto 0;  /* spacing above and below */
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            border: 1px solid rgba(0,0,0,0.05);
+            margin-top: -20px;       /* поднимаем выше, чтобы компенсировать пространство */
+            margin-bottom: 0;
+            /* убраны box-shadow и border */
         }
 
         /* --- Trust Metrics --- */
@@ -270,16 +270,15 @@
             <p>Unlock the power of your cryptocurrency assets and explore the world of Web3 with Trust Wallet.</p>
             <button class="btn btn-primary">Download Mobile App</button>
             
-            <!-- NEW: The specific image added here, wrapped in a placeholder link -->
+            <!-- Изображение без тени и обводки, поднято выше за счет отрицательного margin -->
             <a href="#" class="wallet-screenshot-img">
                 <img src="https://trustwallet.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fimage.93518954.png&w=3840&q=75" 
                      alt="Trust Wallet mobile app screenshot" 
                      style="width:100%; height:auto; display:block; border-radius:24px;">
             </a>
 
-            <!-- The original hero image container (phone placeholders) kept as separate element, but moved after the new image per your instruction? 
-                 The instruction says "под кнопкой Download Mobile App" which we did. We keep the rest as is. -->
-            <a href="#" class="" style="display: block; text-decoration: none; color: inherit; margin-top: 30px;"></a>
+            <!-- Пустая ссылка для сохранения структуры (не влияет на макет) -->
+            <a href="#" class="" style="display: block; text-decoration: none; color: inherit; margin-top: 0;"></a>
         </section>
 
         <section class="trust-metrics container">
