@@ -17,9 +17,9 @@
             --color-bg-blue: #0532C8;
             --color-bg-lightblue-start: #1BA1FF;
             --color-bg-lightblue-end: #0072FF;
-            --color-bg-pink-start: #FFD1E8;
+            --color-bg-pink-start: #FFB3D9;
             --color-bg-pink-end: #FFB3D9;
-            --color-bg-green-start: #E6F793;
+            --color-bg-green-start: #90F793;
             --color-bg-green-end: #90F793;
             --color-footer-bg: #1C1E2B;
             --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -30,14 +30,7 @@
         body {
             font-family: var(--font-family);
             color: var(--color-text);
-            background: linear-gradient(180deg, 
-                #ffffff 0%, #ffffff 18%,
-                #ffffff 18%, #ffffff 30%,
-                #1BA1FF 30%, #0072FF 35%,
-                #FFD1E8 35%, #FFB3D9 45%,
-                #E6F793 45%, #90F793 60%,
-                #f0f4fa 60%, #eef2f7 80%,
-                var(--color-footer-bg) 80%, var(--color-footer-bg) 100%);
+            background: #ffffff;
             line-height: 1.5;
             overflow-x: hidden;
             text-align: center;
@@ -167,8 +160,8 @@
             margin: 20px var(--container-padding);
         }
         .building-trust-section .helmet-placeholder {
-            width: 120px;
-            height: 120px;
+            width: 240px;
+            height: 240px;
             margin: 0 auto 24px;
             display: flex;
             align-items: center;
@@ -198,13 +191,9 @@
             background: transparent;
         }
         .assets-section {
-            background: linear-gradient(180deg, var(--color-bg-lightblue-start) 0%, var(--color-bg-lightblue-end) 100%);
+            background: var(--color-bg-lightblue-end);
             padding: 60px var(--container-padding);
             color: #fff;
-            border-radius: 50px;
-            margin-top: -20px;
-            position: relative;
-            z-index: 1;
         }
         .assets-section h2 { color: #fff; }
         .assets-section p { color: rgba(255,255,255,0.8); }
@@ -257,14 +246,11 @@
             margin-top: 30px;
             font-weight: 700;
             font-size: 14px;
+            padding-bottom: 30px;
         }
         .dapps-section {
-            background: linear-gradient(180deg, var(--color-bg-pink-start) 0%, var(--color-bg-pink-end) 100%);
+            background: var(--color-bg-pink-end);
             padding: 60px var(--container-padding);
-            border-radius: 50px;
-            margin-top: -20px;
-            position: relative;
-            z-index: 2;
         }
         .feature-card {
             background: #fff;
@@ -282,12 +268,8 @@
             margin-bottom: 24px;
         }
         .security-section {
-            background: linear-gradient(180deg, var(--color-bg-green-start) 0%, var(--color-bg-green-end) 100%);
+            background: var(--color-bg-green-end);
             padding: 60px var(--container-padding);
-            border-radius: 50px;
-            margin-top: -20px;
-            position: relative;
-            z-index: 3;
         }
         .security-card-img {
             width: 80px;
@@ -331,10 +313,6 @@
         .community-section {
             padding: 60px var(--container-padding);
             background: linear-gradient(180deg, #f9f9f9 0%, #eaeef5 100%);
-            border-radius: 50px;
-            margin-top: -20px;
-            position: relative;
-            z-index: 4;
         }
         .community-section h2,
         .community-section p {
