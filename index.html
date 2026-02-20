@@ -31,8 +31,6 @@
             --container-padding: 20px;
             --border-radius-card: 16px;
             --border-radius-btn: 50px;
-
-            /* hero больше не имеет фона — удалён */
         }
 
         /* Сброс стандартных отступов */
@@ -45,7 +43,7 @@
         body {
             font-family: var(--font-family);
             color: var(--color-text);
-            background-color: #ffffff;      /* чистый белый фон */
+            background-color: #ffffff;
             line-height: 1.5;
             overflow-x: hidden;
             text-align: center;
@@ -83,7 +81,7 @@
         .header-logo, .menu-icon, .wallet-screenshot-img {
             cursor: pointer;
             transition: opacity 0.2s;
-            display: inline-block;  /* для единообразия */
+            display: inline-block;
         }
         .img-placeholder:hover, .icon-placeholder:hover,
         .helmet-placeholder:hover, .asset-icon:hover,
@@ -143,20 +141,16 @@
         .hero-section {
             padding-top: 20px;
             padding-bottom: 40px;
-            /* background полностью удалён */
         }
 
-        /* Изображение в hero — без тени и обводки, ровно под кнопкой */
         .wallet-screenshot-img {
             display: block;
             max-width: 100%;
             height: auto;
             border-radius: 24px;
-            margin-top: 30px;      /* как было изначально */
+            margin-top: 30px;
             margin-bottom: 0;
-            /* тень и border убраны */
         }
-        /* скрываем старый плейсхолдер, если он вдруг появится */
         .hero-image-container {
             display: none;
         }
@@ -167,9 +161,6 @@
         .trust-metrics { 
             padding: 30px 0; 
             background-color: white;
-            margin-bottom: -1px; /* убираем возможный зазор */
-            position: relative;
-            z-index: 5;
         }
         .metrics-grid {
             display: flex;
@@ -207,21 +198,32 @@
             font-weight: bold;
             color: var(--color-primary);
             border: 2px dashed var(--color-primary);
-            position: relative;
-            z-index: 5;
         }
 
         /* =================================================================
-           СИНИЙ БЛОК (Building on Trust) — скруглены верхние и нижние углы
+           КОНТЕЙНЕР ДЛЯ ЦВЕТНЫХ СЕКЦИЙ (заполняет бока нижним цветом)
+           ================================================================= */
+        .color-sections-wrapper {
+            background: linear-gradient(180deg, 
+                var(--color-bg-blue) 0%, 
+                var(--color-bg-blue) 20%,
+                var(--color-bg-lightblue-start) 20%, 
+                var(--color-bg-lightblue-end) 40%,
+                var(--color-bg-pink-start) 40%, 
+                var(--color-bg-pink-end) 60%,
+                var(--color-bg-green-start) 60%, 
+                var(--color-bg-green-end) 100%);
+            padding: 0 0 0 0;
+        }
+
+        /* =================================================================
+           СИНИЙ БЛОК (Building on Trust)
            ================================================================= */
         .building-trust-section {
             background-color: var(--color-bg-blue);
             padding: 60px var(--container-padding);
             border-radius: 50px 50px 50px 50px;
-            margin-top: 0px;
-            margin-bottom: -20px; /* наезд на следующую секцию */
-            position: relative;
-            z-index: 10;
+            width: 100%;
         }
         .helmet-placeholder {
             width: 120px;
@@ -233,17 +235,14 @@
         }
 
         /* =================================================================
-           СВЕТЛО-СИНИЙ БЛОК (Assets) — скруглены и верх, и низ
+           СВЕТЛО-СИНИЙ БЛОК (Assets)
            ================================================================= */
         .assets-section {
             background: linear-gradient(180deg, var(--color-bg-lightblue-start) 0%, var(--color-bg-lightblue-end) 100%);
-            padding: 80px var(--container-padding) 60px; /* увеличен верхний отступ для компенсации наезда */
+            padding: 60px var(--container-padding);
             color: #fff;
             border-radius: 50px;
-            margin-top: 0px;
-            margin-bottom: -20px; /* наезд на следующую секцию */
-            position: relative;
-            z-index: 20;
+            width: 100%;
         }
         .assets-section h2 { color: #fff; }
         .assets-section p { color: rgba(255,255,255,0.8); }
@@ -301,16 +300,13 @@
         }
 
         /* =================================================================
-           РОЗОВЫЙ БЛОК (dApps) — скруглены и верх, и низ
+           РОЗОВЫЙ БЛОК (dApps)
            ================================================================= */
         .dapps-section {
             background: linear-gradient(180deg, var(--color-bg-pink-start) 0%, var(--color-bg-pink-end) 100%);
-            padding: 80px var(--container-padding) 60px; /* увеличен верхний отступ */
+            padding: 60px var(--container-padding);
             border-radius: 50px;
-            margin-top: 0px;
-            margin-bottom: -20px; /* наезд на следующую секцию */
-            position: relative;
-            z-index: 30;
+            width: 100%;
         }
         .feature-card {
             background: #fff;
@@ -329,16 +325,13 @@
         }
 
         /* =================================================================
-           ЗЕЛЕНО-ЖЕЛТЫЙ БЛОК (Security) — скруглены и верх, и низ
+           ЗЕЛЕНО-ЖЕЛТЫЙ БЛОК (Security)
            ================================================================= */
         .security-section {
             background: linear-gradient(180deg, var(--color-bg-green-start) 0%, var(--color-bg-green-end) 100%);
-            padding: 80px var(--container-padding) 60px;
+            padding: 60px var(--container-padding);
             border-radius: 50px;
-            margin-top: 0px;
-            margin-bottom: 0px; /* последний цветной блок, наезд не нужен */
-            position: relative;
-            z-index: 40;
+            width: 100%;
         }
         .security-card-img {
             width: 80px;
@@ -349,8 +342,7 @@
         }
 
         /* =================================================================
-           БЛОК РАСШИРЕНИЯ (Web3 Extension) — больше не нужны скругления,
-           т.к. он не цветной (background не задан), оставляем как есть.
+           БЛОК РАСШИРЕНИЯ (Web3 Extension)
            ================================================================= */
         .web3-extension-section {
             padding: 60px var(--container-padding);
@@ -386,7 +378,7 @@
         }
 
         /* =================================================================
-           БЛОК СООБЩЕСТВА (Community) — не цветной, без скруглений
+           БЛОК СООБЩЕСТВА (Community)
            ================================================================= */
         .community-section {
             padding: 60px var(--container-padding);
@@ -465,9 +457,6 @@
             background-color: var(--color-primary);
         }
 
-        /* =================================================================
-           НЕБОЛЬШОЙ ДОПОЛНИТЕЛЬНЫЙ КОМФОРТ
-           ================================================================= */
         section {
             scroll-margin-top: 20px;
         }
@@ -488,7 +477,6 @@
         <p>Unlock the power of your cryptocurrency assets and explore the world of Web3 with Trust Wallet.</p>
         <button class="btn btn-primary">Download Mobile App</button>
 
-        <!-- картинка строго под кнопкой, без тени/обводки -->
         <a href="#" class="wallet-screenshot-img">
             <img src="https://trustwallet.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fimage.93518954.png&w=3840&q=75"
                  alt="Trust Wallet mobile app screenshot"
@@ -513,89 +501,92 @@
     <!-- Promo Banner -->
     <div class="promo-banner">CASH DEPOSITS NOW LIVE</div>
 
-    <!-- Building on Trust (синий) -->
-    <section class="building-trust-section text-white">
-        <a href="#" class="helmet-placeholder"></a>
-        <h2>Building on Trust</h2>
-        <p class="text-white">We know that working together as a community is better for everyone. Our platform enables blockchain developers to build their dApps and wallets natively and connect with millions of users, without having to worry about the low-level implementation details.</p>
-        <button class="btn btn-outline-white">Check out our Developer docs</button>
-    </section>
+    <!-- Все цветные секции в одном wrapper для заполнения боков -->
+    <div class="color-sections-wrapper">
+        <!-- Building on Trust (синий) -->
+        <section class="building-trust-section text-white">
+            <a href="#" class="helmet-placeholder"></a>
+            <h2>Building on Trust</h2>
+            <p class="text-white">We know that working together as a community is better for everyone. Our platform enables blockchain developers to build their dApps and wallets natively and connect with millions of users, without having to worry about the low-level implementation details.</p>
+            <button class="btn btn-outline-white">Check out our Developer docs</button>
+        </section>
 
-    <!-- Assets (светло-синий) -->
-    <section class="assets-section">
-        <div class="container">
-            <h2>One Platform, Millions of Assets</h2>
-            <p>As a leading self-custody multi-chain platform, we support millions of assets across 100+ blockchains. From Bitcoin, Ethereum, and Solana, to Cosmos, Optimism, and much more.</p>
-            <div class="search-bar">Search for an asset...</div>
-            <div class="asset-list">
-                <div class="asset-item">
-                    <div class="asset-info"><a href="#" class="asset-icon" style="background:#F3BA2F;"></a> <span>BNB Smart Chain (BNB)</span></div>
-                    <div class="asset-actions"><span class="action-chip">Buy</span><span class="action-chip">Sell</span></div>
+        <!-- Assets (светло-синий) -->
+        <section class="assets-section">
+            <div class="container">
+                <h2>One Platform, Millions of Assets</h2>
+                <p>As a leading self-custody multi-chain platform, we support millions of assets across 100+ blockchains. From Bitcoin, Ethereum, and Solana, to Cosmos, Optimism, and much more.</p>
+                <div class="search-bar">Search for an asset...</div>
+                <div class="asset-list">
+                    <div class="asset-item">
+                        <div class="asset-info"><a href="#" class="asset-icon" style="background:#F3BA2F;"></a> <span>BNB Smart Chain (BNB)</span></div>
+                        <div class="asset-actions"><span class="action-chip">Buy</span><span class="action-chip">Sell</span></div>
+                    </div>
+                    <div class="asset-item">
+                        <div class="asset-info"><a href="#" class="asset-icon" style="background:#9945FF;"></a> <span>Solana (SOL)</span></div>
+                        <div class="asset-actions"><span class="action-chip">Buy</span><span class="action-chip">Sell</span></div>
+                    </div>
+                    <div class="asset-item">
+                        <div class="asset-info"><a href="#" class="asset-icon" style="background:#4EA8DE;"></a> <span>Sui (SUI)</span></div>
+                        <div class="asset-actions"><span class="action-chip">Buy</span></div>
+                    </div>
+                    <div class="asset-item">
+                        <div class="asset-info"><a href="#" class="asset-icon" style="background:#E6007A;"></a> <span>Polkadot (DOT)</span></div>
+                        <div class="asset-actions"><span class="action-chip">Buy</span><span class="action-chip">Swap</span></div>
+                    </div>
                 </div>
-                <div class="asset-item">
-                    <div class="asset-info"><a href="#" class="asset-icon" style="background:#9945FF;"></a> <span>Solana (SOL)</span></div>
-                    <div class="asset-actions"><span class="action-chip">Buy</span><span class="action-chip">Sell</span></div>
-                </div>
-                <div class="asset-item">
-                    <div class="asset-info"><a href="#" class="asset-icon" style="background:#4EA8DE;"></a> <span>Sui (SUI)</span></div>
-                    <div class="asset-actions"><span class="action-chip">Buy</span></div>
-                </div>
-                <div class="asset-item">
-                    <div class="asset-info"><a href="#" class="asset-icon" style="background:#E6007A;"></a> <span>Polkadot (DOT)</span></div>
-                    <div class="asset-actions"><span class="action-chip">Buy</span><span class="action-chip">Swap</span></div>
+                <div class="asset-stats-footer">
+                    <span>10M+ Assets</span><span>600M+ NFTs</span><span>100+ Blockchains</span>
                 </div>
             </div>
-            <div class="asset-stats-footer">
-                <span>10M+ Assets</span><span>600M+ NFTs</span><span>100+ Blockchains</span>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- dApps (розовый) -->
-    <section class="dapps-section">
-        <div class="container">
-            <h2>Browse a world of dApps</h2>
-            <p>Access Web3 and DeFi opportunities in our dApp browser.</p>
-            <article class="feature-card dapps-card">
-                <a href="#" class="img-placeholder" style="height:200px; background:#ddd; border-radius:16px; margin-bottom:20px;"></a>
-                <h3>Deposit crypto easily from exchanges</h3>
-                <p>Take control of your crypto. Easily fund your wallet directly from Binance, Coinbase, and Kraken exchanges to Trust Wallet.</p>
-                <button class="btn btn-outline full-width">See how to self-custody</button>
-            </article>
-        </div>
-    </section>
-
-    <!-- Security (зелёно-жёлтый) -->
-    <section class="security-section">
-        <div class="container">
-            <div style="margin-bottom:40px;">
-                <h2>Zero personal tracking</h2>
-                <p>We secure your wallet, but don't control or have access to your private keys or secret phrase — only you do.</p>
+        <!-- dApps (розовый) -->
+        <section class="dapps-section">
+            <div class="container">
+                <h2>Browse a world of dApps</h2>
+                <p>Access Web3 and DeFi opportunities in our dApp browser.</p>
+                <article class="feature-card dapps-card">
+                    <a href="#" class="img-placeholder" style="height:200px; background:#ddd; border-radius:16px; margin-bottom:20px;"></a>
+                    <h3>Deposit crypto easily from exchanges</h3>
+                    <p>Take control of your crypto. Easily fund your wallet directly from Binance, Coinbase, and Kraken exchanges to Trust Wallet.</p>
+                    <button class="btn btn-outline full-width">See how to self-custody</button>
+                </article>
             </div>
-            <article class="feature-card">
-                <a href="#" class="security-card-img"></a>
-                <h3>True ownership of your crypto assets</h3>
-                <p>We secure your wallet, but don't control or have access to your private keys or secret phrase - only you do.</p>
-                <button class="btn btn-primary full-width">Get started</button>
-            </article>
-            <article class="feature-card">
-                <a href="#" class="security-card-img" style="background:linear-gradient(45deg,#4facfe,#00f2fe);"></a>
-                <h3>Added security with encryption</h3>
-                <p>Store encrypted backup in iCloud or Google Drive.</p>
-            </article>
-            <article class="feature-card">
-                <a href="#" class="security-card-img" style="background:linear-gradient(45deg,#f093fb,#f5576c);"></a>
-                <h3>Zero personal tracking</h3>
-                <p>We don't track any personal information, including your IP address or balances.</p>
-            </article>
-            <article class="feature-card">
-                <a href="#" class="security-card-img" style="background:linear-gradient(45deg,#fa709a,#fee140);"></a>
-                <h3>Proactive alerts for risky transactions</h3>
-                <p>Stay safe with alerts for risky address and dApp connections.</p>
-            </article>
-            <button class="btn btn-outline full-width" style="margin-top:20px;">Learn more about privacy & security</button>
-        </div>
-    </section>
+        </section>
+
+        <!-- Security (зелёно-жёлтый) -->
+        <section class="security-section">
+            <div class="container">
+                <div style="margin-bottom:40px;">
+                    <h2>Zero personal tracking</h2>
+                    <p>We secure your wallet, but don't control or have access to your private keys or secret phrase — only you do.</p>
+                </div>
+                <article class="feature-card">
+                    <a href="#" class="security-card-img"></a>
+                    <h3>True ownership of your crypto assets</h3>
+                    <p>We secure your wallet, but don't control or have access to your private keys or secret phrase - only you do.</p>
+                    <button class="btn btn-primary full-width">Get started</button>
+                </article>
+                <article class="feature-card">
+                    <a href="#" class="security-card-img" style="background:linear-gradient(45deg,#4facfe,#00f2fe);"></a>
+                    <h3>Added security with encryption</h3>
+                    <p>Store encrypted backup in iCloud or Google Drive.</p>
+                </article>
+                <article class="feature-card">
+                    <a href="#" class="security-card-img" style="background:linear-gradient(45deg,#f093fb,#f5576c);"></a>
+                    <h3>Zero personal tracking</h3>
+                    <p>We don't track any personal information, including your IP address or balances.</p>
+                </article>
+                <article class="feature-card">
+                    <a href="#" class="security-card-img" style="background:linear-gradient(45deg,#fa709a,#fee140);"></a>
+                    <h3>Proactive alerts for risky transactions</h3>
+                    <p>Stay safe with alerts for risky address and dApp connections.</p>
+                </article>
+                <button class="btn btn-outline full-width" style="margin-top:20px;">Learn more about privacy & security</button>
+            </div>
+        </section>
+    </div>
 
     <!-- Web3 Extension -->
     <section class="web3-extension-section container">
