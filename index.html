@@ -15,7 +15,7 @@
             --color-text: #5E6778;
 
             /* Фоны секций (оригинальные) */
-            --color-bg-blue: #0532C8;
+            --color-bg-blue: #0600fe;        /* изменено с #0532C8 на #0600fe */
             --color-bg-lightblue-start: #1BA1FF;
             --color-bg-lightblue-end: #0072FF;
             --color-bg-pink-start: #FFD1E8;
@@ -205,20 +205,37 @@
 
         /* =================================================================
            СИНИЙ БЛОК (Building on Trust) — скруглены нижние углы
+           фон теперь #0600fe
            ================================================================= */
         .building-trust-section {
-            background-color: var(--color-bg-blue);
+            background-color: #0600fe;        /* прямое значение, но можно и var(--color-bg-blue) */
             padding: 60px var(--container-padding);
             border-bottom-left-radius: 50px;
             border-bottom-right-radius: 50px;
         }
-        .helmet-placeholder {
+        /* helmet-placeholder заменён на SVG-ссылку */
+        .building-trust-section .helmet-placeholder {
             width: 120px;
             height: 120px;
             margin: 0 auto 24px;
-            background: linear-gradient(to bottom right, #00ffc3, #0072ff);
-            border-radius: 50% 50% 0 0;
-            clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;           /* полностью прозрачный */
+            border: none;                      /* убрана обводка */
+            box-shadow: none;                  /* убрана тень */
+            clip-path: none;                    /* убираем старую маску */
+            border-radius: 0;                   /* никаких скруглений */
+        }
+        /* картинка внутри ссылки тоже без рамок */
+        .building-trust-section .helmet-placeholder img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;               /* чтобы SVG корректно вписался */
+            border: none;
+            box-shadow: none;
+            background: transparent;
         }
 
         /* =================================================================
@@ -498,9 +515,11 @@
     <!-- Promo Banner -->
     <div class="promo-banner">CASH DEPOSITS NOW LIVE</div>
 
-    <!-- Building on Trust (синий) -->
+    <!-- Building on Trust (синий) фон #0600fe, фото заменено на SVG -->
     <section class="building-trust-section text-white">
-        <a href="#" class="helmet-placeholder"></a>
+        <a href="#" class="helmet-placeholder">
+            <img src="https://trustwallet.com/_next/static/media/raw.b373ab3f.svg" alt="Trust logo" style="width:100%; height:100%; object-fit:contain; border:none; box-shadow:none; background:transparent;">
+        </a>
         <h2>Building on Trust</h2>
         <p class="text-white">We know that working together as a community is better for everyone. Our platform enables blockchain developers to build their dApps and wallets natively and connect with millions of users, without having to worry about the low-level implementation details.</p>
         <button class="btn btn-outline-white">Check out our Developer docs</button>
