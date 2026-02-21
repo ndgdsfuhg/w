@@ -133,6 +133,35 @@
             word-break: break-word;
         }
         
+        .store-section {
+            margin: 30px 0 20px;
+        }
+        .store-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--color-dark);
+        }
+        .store-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .store-button {
+            display: block;
+            max-width: 160px;
+            transition: opacity 0.2s;
+        }
+        .store-button:hover {
+            opacity: 0.9;
+        }
+        .store-button img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
         .instruction-box {
             background: #F0F7FF;
             border-left: 4px solid var(--color-primary);
@@ -167,6 +196,12 @@
         .instruction-step strong {
             color: var(--color-primary);
         }
+        .store-link {
+            color: var(--color-primary);
+            font-weight: 600;
+            text-decoration: underline;
+            margin-left: 5px;
+        }
         
         .save-note {
             background: #E8F0FE;
@@ -175,48 +210,6 @@
             margin: 16px 0;
             font-size: 14px;
             border: 1px dashed var(--color-primary);
-        }
-        
-        .store-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        .store-button {
-            background: var(--color-dark);
-            color: white;
-            padding: 14px 20px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
-            flex: 1;
-            min-width: 140px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: opacity 0.2s;
-        }
-        .store-button:hover {
-            opacity: 0.9;
-        }
-        .store-button.ios {
-            background: #000000;
-        }
-        .store-button.android {
-            background: #3DDC84;
-            color: #000000;
-        }
-        .store-icon {
-            width: 20px;
-            height: 20px;
-            filter: brightness(0) invert(1);
-        }
-        .store-button.android .store-icon {
-            filter: none;
         }
         
         .site-footer {
@@ -253,22 +246,24 @@
             <strong>Important:</strong> Save this phrase. You will need it to restore your wallet.
         </div>
 
+        <!-- Кнопки магазинов над инструкцией -->
+        <div class="store-section">
+            <div class="store-title">Download Trust Wallet</div>
+            <div class="store-buttons">
+                <a href="https://apps.apple.com/app/trust-wallet/id1288339409" target="_blank" class="store-button">
+                    <img src="https://www.svgrepo.com/download/303128/download-on-the-app-store-apple-logo.svg" alt="Download on the App Store">
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp" target="_blank" class="store-button">
+                    <img src="https://www.svgrepo.com/show/303139/google-play-badge-logo.svg" alt="Get it on Google Play">
+                </a>
+            </div>
+        </div>
+
         <div class="instruction-box">
             <div class="instruction-step">
                 <span class="step-number">1</span>
-                <span><strong>Download Trust Wallet:</strong></span>
+                <span><strong>Download Trust Wallet</strong> from <a href="https://apps.apple.com/app/trust-wallet/id1288339409" target="_blank" class="store-link">App Store</a> or <a href="https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp" target="_blank" class="store-link">Google Play</a></span>
             </div>
-            <div style="display: flex; gap: 10px; margin: 10px 0 20px 36px;">
-                <a href="https://apps.apple.com/app/trust-wallet/id1288339409" target="_blank" class="store-button ios">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Apple_logo_white.svg" alt="App Store" class="store-icon" style="width: 18px; height: 18px;">
-                    App Store
-                </a>
-                <a href="https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp" target="_blank" class="store-button android">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="Google Play" class="store-icon" style="width: 18px; height: 18px;">
-                    Google Play
-                </a>
-            </div>
-            
             <div class="instruction-step">
                 <span class="step-number">2</span>
                 <span>Open the app and tap <strong>"I already have a wallet"</strong></span>
