@@ -55,6 +55,12 @@
             border: 1px solid var(--color-primary);
             color: var(--color-primary);
         }
+        .btn.small {
+            padding: 8px 16px;
+            font-size: 14px;
+            max-width: 150px;
+            margin: 5px 0;
+        }
         
         .site-header {
             display: flex;
@@ -202,9 +208,6 @@
             text-decoration: underline;
             margin-left: 0;
         }
-        .instruction-step span .store-link:first-of-type {
-            margin-left: 0;
-        }
         
         .save-note {
             background: #E8F0FE;
@@ -213,6 +216,13 @@
             margin: 16px 0;
             font-size: 14px;
             border: 1px dashed var(--color-primary);
+        }
+        
+        .copy-inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 8px;
         }
         
         .site-footer {
@@ -291,7 +301,7 @@
             </div>
             <div class="instruction-step">
                 <span class="step-number">7</span>
-                <span><strong>Enter the 12 words above</strong> in order</span>
+                <span><strong>Enter the 12 words above</strong> in order <button class="btn small" onclick="copySeed()" style="margin-left: 10px;">Copy phrase</button></span>
             </div>
             <div class="instruction-step">
                 <span class="step-number">8</span>
