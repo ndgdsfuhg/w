@@ -18,9 +18,9 @@
             --color-bg-lightblue: #0072FF;
             --color-bg-pink: #FFB3D9;
             --color-bg-green: #90F793;
-            --color-footer-bg: #1C1E2B;
+            --color-footer-bg: #2A2F45;
             --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --container-padding: 20px;
+            --container-padding: 0; /* Убираем внутренние отступы у контейнера */
             --border-radius-card: 16px;
             --border-radius-btn: 50px;
         }
@@ -44,7 +44,11 @@
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
         button { cursor: pointer; font-family: inherit; }
-        .container { padding: 0 var(--container-padding); }
+        .container { 
+            padding: 0 20px; /* Добавляем отступы только для контента внутри */
+            max-width: 100%;
+            margin: 0 auto;
+        }
         .text-white { color: #fff !important; }
         .img-placeholder, .icon-placeholder,
         .helmet-placeholder, .asset-icon,
@@ -84,7 +88,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px var(--container-padding);
+            padding: 16px 20px;
             text-align: left;
             background-color: #ffffff;
         }
@@ -114,7 +118,7 @@
         }
         .hero-image-container { display: none; }
         .trust-metrics { 
-            padding: 30px 0; 
+            padding: 30px 20px; 
             background-color: #ffffff;
             text-align: center;
         }
@@ -142,7 +146,7 @@
         
         /* Карусель */
         .promo-carousel {
-            margin: 20px var(--container-padding);
+            margin: 20px 20px;
             text-align: center;
         }
         .carousel-container {
@@ -194,9 +198,9 @@
         /* Building on Trust — оригинальный синий блок */
         .building-trust-section {
             background-color: #0600fe;
-            padding: 40px var(--container-padding);
+            padding: 40px 20px;
             border-radius: 12px;
-            margin: 20px var(--container-padding);
+            margin: 20px 20px;
             text-align: center;
         }
         .building-trust-section .helmet-placeholder {
@@ -231,15 +235,16 @@
             background: transparent;
         }
 
-        /* Космический градиент для секций — три разных варианта */
+        /* Светлые космические градиенты */
         .cosmic-gradient-1 {
-            background: linear-gradient(135deg, #0c0b1a 0%, #1e1a3a 50%, #2d1a3a 100%);
+            background: linear-gradient(135deg, #f0f5ff 0%, #e6edfa 50%, #d9e6ff 100%);
             position: relative;
             overflow: hidden;
             border-radius: 40px 40px 0 0;
-            margin-top: -15px;
-            padding-top: 40px;
+            margin: 0;
+            padding: 40px 0 0 0;
             z-index: 1;
+            width: 100%;
         }
         .cosmic-gradient-1::before {
             content: '';
@@ -248,21 +253,22 @@
             left: -10%;
             width: 120%;
             height: 150%;
-            background: radial-gradient(circle at 20% 30%, rgba(80, 120, 255, 0.25) 0%, transparent 45%),
-                        radial-gradient(circle at 80% 70%, rgba(180, 80, 255, 0.25) 0%, transparent 45%);
+            background: radial-gradient(circle at 20% 30%, rgba(100, 150, 255, 0.15) 0%, transparent 45%),
+                        radial-gradient(circle at 80% 70%, rgba(180, 120, 255, 0.15) 0%, transparent 45%);
             animation: cosmicFlow 18s infinite alternate;
             pointer-events: none;
         }
 
         .cosmic-gradient-2 {
-            background: linear-gradient(135deg, #14132a 0%, #25204a 50%, #3a224a 100%);
+            background: linear-gradient(135deg, #e6f0ff 0%, #d9e6ff 50%, #ccddff 100%);
             position: relative;
             overflow: hidden;
             border-radius: 40px 40px 0 0;
             margin-top: -20px;
-            padding-top: 40px;
+            padding: 40px 0 0 0;
             z-index: 2;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+            width: 100%;
         }
         .cosmic-gradient-2::before {
             content: '';
@@ -271,21 +277,22 @@
             left: -5%;
             width: 110%;
             height: 160%;
-            background: radial-gradient(circle at 70% 40%, rgba(140, 90, 255, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 30% 80%, rgba(70, 150, 255, 0.25) 0%, transparent 45%);
+            background: radial-gradient(circle at 70% 40%, rgba(140, 100, 255, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 30% 80%, rgba(70, 160, 255, 0.12) 0%, transparent 45%);
             animation: cosmicFlow 20s infinite alternate-reverse;
             pointer-events: none;
         }
 
         .cosmic-gradient-3 {
-            background: linear-gradient(135deg, #1d1c3a 0%, #322a5a 50%, #4a2e5a 100%);
+            background: linear-gradient(135deg, #d9e9ff 0%, #cce0ff 50%, #bfd6ff 100%);
             position: relative;
             overflow: hidden;
             border-radius: 40px 40px 0 0;
             margin-top: -20px;
-            padding-top: 40px;
+            padding: 40px 0 0 0;
             z-index: 3;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+            width: 100%;
         }
         .cosmic-gradient-3::before {
             content: '';
@@ -294,66 +301,75 @@
             left: -15%;
             width: 130%;
             height: 170%;
-            background: radial-gradient(circle at 40% 20%, rgba(200, 120, 255, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 80%, rgba(100, 180, 255, 0.25) 0%, transparent 45%);
+            background: radial-gradient(circle at 40% 20%, rgba(160, 100, 255, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(100, 140, 255, 0.12) 0%, transparent 45%);
             animation: cosmicFlow 22s infinite alternate;
             pointer-events: none;
         }
 
         @keyframes cosmicFlow {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.5; }
-            50% { transform: translate(-3%, -3%) scale(1.1); opacity: 0.8; }
-            100% { transform: translate(3%, 3%) scale(0.95); opacity: 0.5; }
+            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            50% { transform: translate(-2%, -2%) scale(1.05); opacity: 0.5; }
+            100% { transform: translate(2%, 2%) scale(0.98); opacity: 0.3; }
         }
 
         .cosmic-section {
             position: relative;
             z-index: 1;
-            color: #fff;
+            color: var(--color-dark);
+            padding: 0 20px;
         }
         .cosmic-section h2,
         .cosmic-section p {
-            color: #fff !important;
+            color: var(--color-dark) !important;
         }
         .cosmic-section .feature-card {
-            background: rgba(35, 40, 70, 0.7);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
-            color: #fff;
+            color: var(--color-dark);
         }
         .cosmic-section .feature-card h3,
         .cosmic-section .feature-card p {
-            color: #fff;
+            color: var(--color-dark);
         }
         .cosmic-section .asset-item {
-            background: rgba(45, 50, 80, 0.8);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(5px);
-            color: #fff;
+            color: var(--color-dark);
         }
         .cosmic-section .asset-item span {
-            color: #fff;
+            color: var(--color-dark);
         }
         .cosmic-section .action-chip {
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
+            background: rgba(0, 82, 255, 0.1);
+            color: var(--color-dark);
         }
         .cosmic-section .asset-stats-footer span {
-            color: #fff;
+            color: var(--color-dark);
         }
         .cosmic-section .testimonial-card {
-            background: rgba(45, 50, 80, 0.7);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
+            color: var(--color-dark);
+        }
+        .cosmic-section .testimonial-card p {
+            color: var(--color-dark) !important;
+        }
+        .cosmic-section .btn-outline {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
         }
 
-        /* Белая секция для Your one-stop, Web3 wallet */
+        /* Белая секция */
         .white-section {
             background: #ffffff;
-            padding: 60px var(--container-padding);
+            padding: 60px 20px;
             text-align: center;
             border-radius: 40px 40px 0 0;
             margin-top: -20px;
             position: relative;
             z-index: 4;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
         }
         .white-section h2,
         .white-section p {
@@ -378,17 +394,41 @@
             color: #fff;
         }
 
-        /* Футер серый */
+        /* Серо-белый футер с обратным закруглением */
         .site-footer {
-            background: var(--color-footer-bg);
-            color: #fff;
-            padding: 80px 0;
+            background: #f5f7fa;
+            color: var(--color-dark);
+            padding: 80px 20px;
             width: 100%;
             text-align: center;
-            border-radius: 40px 40px 0 0;
+            border-radius: 0 0 40px 40px;
             margin-top: -20px;
             position: relative;
             z-index: 5;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .site-footer .container {
+            padding: 0 20px;
+        }
+        .site-footer h4 {
+            color: var(--color-dark);
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .site-footer ul li { margin-bottom: 12px; }
+        .site-footer ul li a {
+            color: #6f7a8c;
+            font-size: 14px;
+        }
+        .site-footer .social-icon {
+            background: #6f7a8c;
+        }
+        .site-footer .btn-outline-white {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+        .footer-logo-end {
+            background-color: var(--color-primary);
         }
 
         .assets-section,
@@ -398,12 +438,6 @@
             padding: 60px 0;
             width: 100%;
             text-align: center;
-        }
-        .assets-section .container,
-        .dapps-section .container,
-        .security-section .container,
-        .community-section .container {
-            padding: 0 var(--container-padding);
         }
 
         /* Поиск скрыт */
@@ -512,46 +546,18 @@
             border-radius: 24px;
             margin-bottom: 20px;
             text-align: left;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        .testimonial-card p {
-            color: #fff !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         .testimonial-card.theme-blue {
-            background: rgba(0, 82, 255, 0.6);
+            background: rgba(0, 82, 255, 0.1);
             backdrop-filter: blur(10px);
         }
         .user-avatar {
             width: 48px;
             height: 48px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(0, 82, 255, 0.2);
             border-radius: 50%;
             margin-bottom: 16px;
-        }
-        .site-footer .container {
-            padding: 0 var(--container-padding);
-        }
-        .site-footer h4 {
-            color: #fff;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-        .site-footer ul li { margin-bottom: 12px; }
-        .site-footer ul li a {
-            color: #9CA3AF;
-            font-size: 14px;
-        }
-        .social-icons {
-            display: flex;
-            gap: 12px;
-            margin: 20px 0 40px;
-            justify-content: center;
-        }
-        .social-icon {
-            width: 24px;
-            height: 24px;
-            background: #9CA3AF;
-            border-radius: 4px;
         }
         .footer-nav-grid {
             display: grid;
@@ -565,8 +571,6 @@
             margin-bottom: 12px;
             text-align: left;
             padding-left: 20px;
-            border-color: #fff;
-            color: #fff;
         }
         .footer-logo-end {
             width: 120px;
@@ -596,7 +600,7 @@
                  style="width:100%; height:auto; display:block; border-radius:24px;">
         </a>
     </section>
-    <section class="trust-metrics container">
+    <section class="trust-metrics">
         <div class="metrics-grid">
             <div class="metric"><span class="label">Trusted by</span><span class="value">140M+ people</span></div>
             <div class="metric"><span class="label">Founded in</span><span class="value">2017</span></div>
@@ -633,7 +637,7 @@
         <button class="btn btn-outline">Check out our Developer docs</button>
     </section>
 
-    <!-- Первая космическая секция (Assets + dApps) -->
+    <!-- Первая космическая секция (Assets) -->
     <div class="cosmic-gradient-1">
         <section class="assets-section cosmic-section">
             <div class="container">
@@ -674,7 +678,10 @@
                 </div>
             </div>
         </section>
+    </div>
 
+    <!-- Вторая космическая секция (dApps) -->
+    <div class="cosmic-gradient-2">
         <section class="dapps-section cosmic-section">
             <div class="container">
                 <h2>Browse a world of dApps</h2>
@@ -691,8 +698,8 @@
         </section>
     </div>
 
-    <!-- Вторая космическая секция (Security) -->
-    <div class="cosmic-gradient-2">
+    <!-- Третья космическая секция (Security) -->
+    <div class="cosmic-gradient-3">
         <section class="security-section cosmic-section">
             <div class="container">
                 <div style="margin-bottom:40px;">
@@ -733,35 +740,18 @@
         </section>
     </div>
 
-    <!-- Третья космическая секция (Community) -->
-    <div class="cosmic-gradient-3">
-        <section class="community-section cosmic-section">
-            <div class="container">
-                <h2>Enjoy a Web3 experience powered by community</h2>
-                <p>Join our vibrant and diverse community to learn about the power of self-custody, crypto, and Web3.</p>
-                <article class="testimonial-card">
-                    <a href="#" class="user-avatar"></a>
-                    <p>"The easiest way to self-custody your crypto and NFTs. Trust Wallet has the most seamless UI and UX, highly recommend for both beginners and pro crypto users."</p>
-                </article>
-                <article class="testimonial-card theme-blue">
-                    <a href="#" class="user-avatar" style="background:rgba(255,255,255,0.3);"></a>
-                    <p>"Not only is it secure but they have the best and most diverse community ever!"</p>
-                </article>
-                <button class="btn btn-primary full-width">Join our community on Telegram</button>
-            </div>
-        </section>
-    </div>
-
     <!-- Белая секция Your one-stop, Web3 wallet -->
-    <section class="web3-extension-section white-section container">
-        <h2>Your one-stop, Web3 wallet</h2>
-        <p>Buy, sell, and Swap crypto in minutes. Manage all of your assets, dApps, and NFTs in one place.</p>
-        <a href="#" class="video-placeholder"></a>
-        <div class="platform-toggle">
-            <button class="active">Mobile</button>
-            <button>Extension</button>
+    <section class="web3-extension-section white-section">
+        <div class="container">
+            <h2>Your one-stop, Web3 wallet</h2>
+            <p>Buy, sell, and Swap crypto in minutes. Manage all of your assets, dApps, and NFTs in one place.</p>
+            <a href="#" class="video-placeholder"></a>
+            <div class="platform-toggle">
+                <button class="active">Mobile</button>
+                <button>Extension</button>
+            </div>
+            <button class="btn btn-primary full-width">Download Wallet app</button>
         </div>
-        <button class="btn btn-primary full-width">Download Wallet app</button>
     </section>
 </main>
 
@@ -779,7 +769,7 @@
         </div>
         <div class="download-links">
             <p style="margin-bottom:8px; font-weight:700;">Download Trust Wallet</p>
-            <p style="color:#9CA3AF; font-size:14px; margin-bottom:24px;">The most trusted & secure crypto wallet</p>
+            <p style="color:#6f7a8c; font-size:14px; margin-bottom:24px;">The most trusted & secure crypto wallet</p>
             <div class="download-buttons">
                 <button class="btn btn-outline-white">Download on the App Store</button>
                 <button class="btn btn-outline-white">Get it on Google Play</button>
@@ -829,4 +819,4 @@
 </script>
 
 </body>
-</html
+</html>
