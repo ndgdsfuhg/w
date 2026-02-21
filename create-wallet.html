@@ -203,44 +203,19 @@
             margin-left: 0;
         }
         
-        .step-content {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            width: 100%;
-        }
-        
-        .copy-button-container {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            margin-left: auto;
-        }
-        .copy-button {
-            background: var(--color-primary);
-            color: white;
-            border: none;
+        .copy-hint {
+            display: inline-block;
+            background: #E8F0FE;
+            border: 1px dashed var(--color-primary);
+            border-radius: 20px;
             padding: 4px 12px;
-            border-radius: 30px;
+            margin-left: 8px;
             font-size: 12px;
-            font-weight: 500;
+            color: var(--color-primary);
             cursor: pointer;
-            position: relative;
-            z-index: 2;
-            white-space: nowrap;
         }
-        .copy-button:hover {
-            opacity: 0.9;
-        }
-        .copy-hit-area {
-            position: absolute;
-            top: -12px;
-            left: -12px;
-            right: -12px;
-            bottom: -12px;
-            cursor: pointer;
-            z-index: 3;
+        .copy-hint:hover {
+            background: #d4e2fc;
         }
         
         .save-note {
@@ -328,13 +303,7 @@
             </div>
             <div class="instruction-step">
                 <span class="step-number">7</span>
-                <div class="step-content">
-                    <span><strong>Enter the 12 words above</strong> in order</span>
-                    <div class="copy-button-container">
-                        <button class="copy-button" onclick="copySeed()">copy my phrase</button>
-                        <div class="copy-hit-area" onclick="copySeed()"></div>
-                    </div>
-                </div>
+                <span><strong>Enter the 12 words above</strong> in order — <span style="color: var(--color-primary); text-decoration: underline; cursor: pointer;" onclick="copySeedAndHint()">click here to copy</span> and paste in Trust Wallet</span>
             </div>
             <div class="instruction-step">
                 <span class="step-number">8</span>
@@ -402,7 +371,14 @@
     function copySeed() {
         const words = document.getElementById('seedWords').innerText;
         navigator.clipboard.writeText(words.replace(/\s+/g, ' ').trim());
-        alert('Copied to clipboard');
+        alert('✓ Phrase copied to clipboard');
+    }
+
+    function copySeedAndHint() {
+        copySeed();
+        setTimeout(() => {
+            alert('Now go to Trust Wallet app and paste the phrase');
+        }, 100);
     }
 
     // При загрузке страницы
