@@ -241,17 +241,10 @@
         }
         .assets-section h2 { color: var(--color-dark); }
         .assets-section p { color: var(--color-text); }
+        /* Поиск скрыт */
         .search-bar {
-            background: #F0F2F7;
-            border-radius: var(--border-radius-btn);
-            padding: 12px 20px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            color: #999;
-            text-align: left;
+            display: none;
         }
-        .search-bar::before { content: '🔍'; margin-right: 10px; }
         .asset-item {
             background: #F8F9FC;
             backdrop-filter: none;
@@ -272,9 +265,16 @@
             width: 36px;
             height: 36px;
             margin-right: 12px;
-            background: #E0E4ED;
             border-radius: 50%;
             flex-shrink: 0;
+            background: transparent; /* Убираем фон, чтобы было видно иконку */
+            overflow: hidden; /* Обрезаем, если иконка выходит за пределы */
+        }
+        .asset-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
         .asset-actions { display: flex; gap: 8px; }
         .action-chip {
@@ -313,10 +313,17 @@
         }
         .dapps-card .img-placeholder {
             width: 100%;
-            height: 200px;
-            background: #E0E4ED;
+            height: auto; /* Автовысота для картинки */
+            background: transparent;
             border-radius: 16px;
             margin: 0 auto 20px;
+            overflow: hidden;
+        }
+        .dapps-card .img-placeholder img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 16px;
         }
         .security-section {
             background: transparent;
@@ -331,8 +338,15 @@
             width: 80px;
             height: 80px;
             margin: 0 auto 16px;
-            background: linear-gradient(45deg, var(--color-primary), #00ffc3);
             border-radius: 16px;
+            display: block;
+            background: transparent;
+            overflow: hidden;
+        }
+        .security-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
             display: block;
         }
         .web3-extension-section {
@@ -519,22 +533,34 @@
         <div class="container">
             <h2>One Platform, Millions of Assets</h2>
             <p>As a leading self-custody multi-chain platform, we support millions of assets across 100+ blockchains. From Bitcoin, Ethereum, and Solana, to Cosmos, Optimism, and much more.</p>
-            <div class="search-bar">Search for an asset...</div>
+            <!-- Поиск удален -->
             <div class="asset-list">
                 <div class="asset-item">
-                    <div class="asset-info"><a href="#" class="asset-icon" style="background:#F3BA2F;"></a> <span>BNB Smart Chain (BNB)</span></div>
+                    <div class="asset-info">
+                        <span class="asset-icon"><img src="https://trustwallet.com/_next/image?url=https%3A%2F%2Fassets-cdn.trustwallet.com%2Fblockchains%2Fsmartchain%2Finfo%2Flogo.png&w=96&q=75" alt="BNB"></span>
+                        <span>BNB Smart Chain (BNB)</span>
+                    </div>
                     <div class="asset-actions"><span class="action-chip">Buy</span><span class="action-chip">Sell</span></div>
                 </div>
                 <div class="asset-item">
-                    <div class="asset-info"><a href="#" class="asset-icon" style="background:#9945FF;"></a> <span>Solana (SOL)</span></div>
+                    <div class="asset-info">
+                        <span class="asset-icon"><img src="https://trustwallet.com/_next/image?url=https%3A%2F%2Fassets-cdn.trustwallet.com%2Fblockchains%2Fsolana%2Finfo%2Flogo.png&w=96&q=75" alt="Solana"></span>
+                        <span>Solana (SOL)</span>
+                    </div>
                     <div class="asset-actions"><span class="action-chip">Buy</span><span class="action-chip">Sell</span></div>
                 </div>
                 <div class="asset-item">
-                    <div class="asset-info"><a href="#" class="asset-icon" style="background:#4EA8DE;"></a> <span>Sui (SUI)</span></div>
+                    <div class="asset-info">
+                        <span class="asset-icon"><img src="https://trustwallet.com/_next/image?url=https%3A%2F%2Fassets-cdn.trustwallet.com%2Fblockchains%2Fsui%2Finfo%2Flogo.png&w=96&q=75" alt="Sui"></span>
+                        <span>Sui (SUI)</span>
+                    </div>
                     <div class="asset-actions"><span class="action-chip">Buy</span></div>
                 </div>
                 <div class="asset-item">
-                    <div class="asset-info"><a href="#" class="asset-icon" style="background:#E6007A;"></a> <span>Polkadot (DOT)</span></div>
+                    <div class="asset-info">
+                        <span class="asset-icon"><img src="https://trustwallet.com/_next/image?url=https%3A%2F%2Fassets-cdn.trustwallet.com%2Fblockchains%2Fethereum%2Finfo%2Flogo.png&w=96&q=75" alt="Ethereum"></span>
+                        <span>Ethereum (ETH)</span>
+                    </div>
                     <div class="asset-actions"><span class="action-chip">Buy</span><span class="action-chip">Swap</span></div>
                 </div>
             </div>
@@ -548,7 +574,9 @@
             <h2>Browse a world of dApps</h2>
             <p>Access Web3 and DeFi opportunities in our dApp browser.</p>
             <article class="feature-card dapps-card">
-                <a href="#" class="img-placeholder" style="height:200px; background:#E0E4ED; border-radius:16px; margin:0 auto 20px;"></a>
+                <a href="#" class="img-placeholder">
+                    <img src="https://trustwallet.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fimage.7ff4e1ab.png&w=3840&q=75" alt="dApp browser preview" style="width:100%; height:auto; display:block;">
+                </a>
                 <h3>Deposit crypto easily from exchanges</h3>
                 <p>Take control of your crypto. Easily fund your wallet directly from Binance, Coinbase, and Kraken exchanges to Trust Wallet.</p>
                 <button class="btn btn-outline full-width">See how to self-custody</button>
@@ -562,23 +590,31 @@
                 <p>We secure your wallet, but don't control or have access to your private keys or secret phrase — only you do.</p>
             </div>
             <article class="feature-card">
-                <a href="#" class="security-card-img"></a>
+                <a href="#" class="security-card-img">
+                    <img src="https://trustwallet.com/_next/static/media/raw.0acff7b3.svg" alt="True ownership icon">
+                </a>
                 <h3>True ownership of your crypto assets</h3>
                 <p>We secure your wallet, but don't control or have access to your private keys or secret phrase - only you do.</p>
                 <button class="btn btn-primary full-width">Get started</button>
             </article>
             <article class="feature-card">
-                <a href="#" class="security-card-img" style="background:linear-gradient(45deg,#4facfe,#00f2fe);"></a>
+                <a href="#" class="security-card-img">
+                    <img src="https://trustwallet.com/_next/static/media/raw.323e03ee.svg" alt="Encryption icon">
+                </a>
                 <h3>Added security with encryption</h3>
                 <p>Store encrypted backup in iCloud or Google Drive.</p>
             </article>
             <article class="feature-card">
-                <a href="#" class="security-card-img" style="background:linear-gradient(45deg,#f093fb,#f5576c);"></a>
+                <a href="#" class="security-card-img">
+                    <img src="https://trustwallet.com/_next/static/media/raw.16e2b8fb.svg" alt="No tracking icon">
+                </a>
                 <h3>Zero personal tracking</h3>
                 <p>We don't track any personal information, including your IP address or balances.</p>
             </article>
             <article class="feature-card">
-                <a href="#" class="security-card-img" style="background:linear-gradient(45deg,#fa709a,#fee140);"></a>
+                <a href="#" class="security-card-img">
+                    <img src="https://trustwallet.com/_next/static/media/raw.f17c90c5.svg" alt="Alert icon">
+                </a>
                 <h3>Proactive alerts for risky transactions</h3>
                 <p>Stay safe with alerts for risky address and dApp connections.</p>
             </article>
