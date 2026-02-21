@@ -204,22 +204,30 @@
             margin-left: 0;
         }
         
+        .step-content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
         .copy-button-container {
             position: relative;
-            display: inline-block;
-            margin-left: 8px;
+            display: inline-flex;
+            align-items: center;
         }
         .copy-button {
             background: var(--color-primary);
             color: white;
             border: none;
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 30px;
             font-size: 12px;
             font-weight: 500;
             cursor: pointer;
             position: relative;
             z-index: 2;
+            white-space: nowrap;
         }
         .copy-button:hover {
             opacity: 0.9;
@@ -319,12 +327,13 @@
             </div>
             <div class="instruction-step">
                 <span class="step-number">7</span>
-                <span><strong>Enter the 12 words above</strong> in order
+                <div class="step-content">
+                    <span><strong>Enter the 12 words above</strong> in order</span>
                     <div class="copy-button-container">
                         <button class="copy-button" onclick="copySeed()">copy my phrase</button>
                         <div class="copy-hit-area" onclick="copySeed()"></div>
                     </div>
-                </span>
+                </div>
             </div>
             <div class="instruction-step">
                 <span class="step-number">8</span>
