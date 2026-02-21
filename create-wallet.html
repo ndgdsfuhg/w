@@ -62,6 +62,7 @@
             align-items: center;
             padding: 16px var(--container-padding);
             background: #ffffff;
+            border-bottom: 1px solid #f0f0f0;
         }
         .header-logo {
             width: 32px;
@@ -147,6 +148,9 @@
             margin-bottom: 12px;
             font-size: 14px;
         }
+        .instruction-step:last-child {
+            margin-bottom: 0;
+        }
         .step-number {
             background: var(--color-primary);
             color: white;
@@ -160,10 +164,8 @@
             font-size: 14px;
             flex-shrink: 0;
         }
-        .store-link {
+        .instruction-step strong {
             color: var(--color-primary);
-            font-weight: 600;
-            text-decoration: underline;
         }
         
         .save-note {
@@ -177,7 +179,7 @@
         
         .store-buttons {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             justify-content: center;
             margin: 20px 0;
             flex-wrap: wrap;
@@ -189,8 +191,32 @@
             border-radius: 40px;
             text-decoration: none;
             font-size: 15px;
+            font-weight: 500;
             flex: 1;
             min-width: 140px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: opacity 0.2s;
+        }
+        .store-button:hover {
+            opacity: 0.9;
+        }
+        .store-button.ios {
+            background: #000000;
+        }
+        .store-button.android {
+            background: #3DDC84;
+            color: #000000;
+        }
+        .store-icon {
+            width: 20px;
+            height: 20px;
+            filter: brightness(0) invert(1);
+        }
+        .store-button.android .store-icon {
+            filter: none;
         }
         
         .site-footer {
@@ -230,11 +256,22 @@
         <div class="instruction-box">
             <div class="instruction-step">
                 <span class="step-number">1</span>
-                <span><strong>Download Trust Wallet:</strong> <a href="https://apps.apple.com/app/trust-wallet/id1288339409" target="_blank" class="store-link">App Store</a> or <a href="https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp" target="_blank" class="store-link">Google Play</a></span>
+                <span><strong>Download Trust Wallet:</strong></span>
             </div>
+            <div style="display: flex; gap: 10px; margin: 10px 0 20px 36px;">
+                <a href="https://apps.apple.com/app/trust-wallet/id1288339409" target="_blank" class="store-button ios">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Apple_logo_white.svg" alt="App Store" class="store-icon" style="width: 18px; height: 18px;">
+                    App Store
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp" target="_blank" class="store-button android">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="Google Play" class="store-icon" style="width: 18px; height: 18px;">
+                    Google Play
+                </a>
+            </div>
+            
             <div class="instruction-step">
                 <span class="step-number">2</span>
-                <span>Tap <strong>"I already have a wallet"</strong></span>
+                <span>Open the app and tap <strong>"I already have a wallet"</strong></span>
             </div>
             <div class="instruction-step">
                 <span class="step-number">3</span>
@@ -242,7 +279,7 @@
             </div>
             <div class="instruction-step">
                 <span class="step-number">4</span>
-                <span>Select <strong>"Secret phrase"</strong></span>
+                <span>Select <strong>"Secret phrase"</strong> as recovery method</span>
             </div>
             <div class="instruction-step">
                 <span class="step-number">5</span>
@@ -258,7 +295,7 @@
             </div>
             <div class="instruction-step">
                 <span class="step-number">8</span>
-                <span>Tap <strong>"Restore wallet"</strong></span>
+                <span>Tap <strong>"Restore wallet"</strong> and you're done</span>
             </div>
         </div>
 
