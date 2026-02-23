@@ -491,8 +491,6 @@
             display: block;
         }
         section { scroll-margin-top: 20px; }
-
-        /* Единый стиль для всех основных изображений */
         .wallet-screenshot-img img,
         .carousel-item img,
         .dapps-card .img-placeholder img,
@@ -515,8 +513,7 @@
         <p>Generate a new wallet and take control of your cryptocurrency assets with Trust Wallet.</p>
         <button class="btn btn-primary" onclick="alert('Create Wallet')">Create New Wallet</button>
         <a href="#" class="wallet-screenshot-img" onclick="alert('Create Wallet'); return false;">
-            <img src="https://trustwallet.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fimage.93518954.png&w=3840&q=75"
-                 alt="Trust Wallet mobile app screenshot">
+            <img src="https://trustwallet.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fimage.93518954.png&w=3840&q=75" alt="Trust Wallet mobile app screenshot">
         </a>
     </section>
     <section class="trust-metrics container">
@@ -531,7 +528,6 @@
             <div class="stars">★★★★★</div>
         </div>
     </section>
-
     <div class="promo-carousel">
         <div class="carousel-container" id="carousel">
             <div class="carousel-item"><img src="https://strapi-cdn.trustwallet.com/C_Deposit_mobile_861c00bfd7.svg" alt="Cash Deposits" onclick="alert('Create Wallet'); return false;"></div>
@@ -544,8 +540,6 @@
             <span class="dot" data-index="2" onclick="alert('Create Wallet'); return false;"></span>
         </div>
     </div>
-
-    <!-- Блок Building on Trust поднят выше -->
     <section class="building-trust-section">
         <h2>Building on Trust</h2>
         <a href="#" class="helmet-placeholder" onclick="alert('Create Wallet'); return false;">
@@ -554,7 +548,6 @@
         <p>We know that working together as a community is better for everyone. Our platform enables blockchain developers to build their dApps and wallets natively and connect with millions of users, without having to worry about the low-level implementation details.</p>
         <button class="btn btn-outline" onclick="alert('Create Wallet')">Check out our Developer docs</button>
     </section>
-
     <section class="assets-section">
         <div class="container">
             <h2>One Platform, Millions of Assets</h2>
@@ -646,13 +639,10 @@
             <button class="btn btn-outline full-width" style="margin-top:20px;" onclick="alert('Create Wallet')">Learn more about privacy & security</button>
         </div>
     </section>
-
-    <!-- Секция Web3 Extension: убран текст и переключатель, оставлена только кнопка Create Wallet -->
     <section class="web3-extension-section container">
         <a href="#" class="video-placeholder" onclick="alert('Create Wallet'); return false;"></a>
         <button class="btn btn-primary full-width" onclick="alert('Create Wallet')">Create Wallet</button>
     </section>
-
     <section class="community-section">
         <div class="container">
             <h2>Enjoy a Web3 experience powered by community</h2>
@@ -696,7 +686,6 @@
         <a href="#" class="footer-logo-end" onclick="alert('Create Wallet'); return false;"></a>
     </div>
 </footer>
-
 <script>
     (function() {
         const carousel = document.getElementById('carousel');
@@ -716,9 +705,7 @@
                 }
             });
         }
-
         carousel.addEventListener('scroll', updateActiveDot);
-
         dots.forEach((dot, index) => {
             dot.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -729,11 +716,8 @@
                 });
             });
         });
-
         updateActiveDot();
     })();
-
-    // Все функции генератора удалены
 </script>
 </body>
 </html>
