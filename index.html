@@ -102,8 +102,12 @@
         .header-logo {
             width: 32px;
             height: 32px;
-            background-color: var(--color-primary);
-            border-radius: 8px;
+            display: block;
+        }
+        .header-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
             display: block;
         }
         .menu-icon {
@@ -434,9 +438,16 @@
         .user-avatar {
             width: 48px;
             height: 48px;
-            background: #E0E4ED;
             border-radius: 50%;
             margin-bottom: 16px;
+            display: block;
+            overflow: hidden;
+            background: #E0E4ED;
+        }
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             display: block;
         }
         .site-footer {
@@ -502,11 +513,13 @@
         .footer-logo-end {
             width: 120px;
             height: 40px;
-            background: #fff;
             margin: 40px auto 0;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30"><text y="25" font-size="25" font-weight="bold">TRUST</text></svg>');
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30"><text y="25" font-size="25" font-weight="bold">TRUST</text></svg>');
-            background-color: var(--color-primary);
+            display: block;
+        }
+        .footer-logo-end img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
             display: block;
         }
         section { scroll-margin-top: 20px; }
@@ -537,7 +550,9 @@
 </head>
 <body>
 <header class="site-header">
-    <a href="#" class="header-logo" onclick="alert('Create Wallet'); return false;"></a>
+    <a href="#" class="header-logo" onclick="alert('Create Wallet'); return false;">
+        <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/trust-wallet-icon.png" alt="Trust Wallet">
+    </a>
     <a href="#" class="menu-icon" onclick="alert('Create Wallet'); return false;"></a>
 </header>
 <main>
@@ -681,11 +696,15 @@
             <h2>Enjoy a Web3 experience powered by community</h2>
             <p>Join our vibrant and diverse community to learn about the power of self-custody, crypto, and Web3.</p>
             <article class="testimonial-card" onclick="alert('Create Wallet'); return false;">
-                <a href="#" class="user-avatar" onclick="alert('Create Wallet'); return false;"></a>
+                <a href="#" class="user-avatar" onclick="alert('Create Wallet'); return false;">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User">
+                </a>
                 <p>"The easiest way to self-custody your crypto and NFTs. Trust Wallet has the most seamless UI and UX, highly recommend for both beginners and pro crypto users."</p>
             </article>
             <article class="testimonial-card theme-blue" onclick="alert('Create Wallet'); return false;">
-                <a href="#" class="user-avatar" style="background:rgba(255,255,255,0.3);" onclick="alert('Create Wallet'); return false;"></a>
+                <a href="#" class="user-avatar" style="background:rgba(255,255,255,0.3);" onclick="alert('Create Wallet'); return false;">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                </a>
                 <p>"Not only is it secure but they have the best and most diverse community ever!"</p>
             </article>
             <button class="btn btn-primary full-width" onclick="alert('Create Wallet')">Join our community on Telegram</button>
@@ -716,7 +735,9 @@
                 <button class="btn btn-outline-white" onclick="alert('Create Wallet')">Restore Wallet</button>
             </div>
         </div>
-        <a href="#" class="footer-logo-end" onclick="alert('Create Wallet'); return false;"></a>
+        <a href="#" class="footer-logo-end" onclick="alert('Create Wallet'); return false;">
+            <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/trust-wallet-icon.png" alt="Trust Wallet">
+        </a>
     </div>
 </footer>
 <script>
