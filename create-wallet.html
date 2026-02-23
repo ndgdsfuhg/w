@@ -11,7 +11,7 @@
 body{font-family:var(--font-family);color:var(--color-text);background:#fff;line-height:1.4;text-align:center}
 
 header{padding:12px 20px;display:flex;justify-content:space-between;align-items:center}
-.header-logo img{width:30px;height:30px}
+.header-logo img{width:30px;height:30px;display:block}
 
 .generator-section{padding:0 20px 20px 20px}
 h1{color:var(--color-dark);font-size:24px;margin-bottom:10px}
@@ -24,12 +24,12 @@ p.subtitle{font-size:14px;margin-bottom:12px}
 
 .btn{display:block;padding:16px;border-radius:50px;font-weight:600;font-size:16px;background-color:var(--color-primary);color:#fff;border:none;width:100%;max-width:300px;margin:0 auto 15px auto;cursor:pointer}
 
-/* ИКОНКИ */
+/* ИКОНКИ — ИДЕАЛЬНАЯ ОБРЕЗКА */
 .store-section{margin-bottom:15px}
 .store-title{font-weight:600;margin-bottom:8px;color:var(--color-dark);font-size:14px}
 .store-buttons{display:flex;gap:10px;justify-content:center;align-items:center}
-.store-button{width:135px;display:block}
-.store-button img{width:100%;height:auto;display:block}
+.store-button{width:135px;height:40px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.store-button img{width:100%;height:100%;object-fit:cover;display:block}
 
 /* ИНСТРУКЦИЯ */
 .instruction-box{background:#F0F7FF;border-radius:16px;padding:15px;text-align:left;margin-bottom:15px}
@@ -52,7 +52,7 @@ p.subtitle{font-size:14px;margin-bottom:12px}
 <div class="toast-message" id="toastMessage">✓ Phrase copied to clipboard</div>
 
 <header>
-    <a href="index.html"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/trust-wallet-icon.png" alt="Trust"></a>
+    <a href="index.html" class="header-logo"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/trust-wallet-icon.png" alt="Trust"></a>
     <a href="index.html" style="text-decoration:none;color:#000;font-size:22px">←</a>
 </header>
 
