@@ -592,9 +592,9 @@
             <div class="carousel-item"><img src="https://strapi-cdn.trustwallet.com/premium_Banner_Mobile_9805cdb7ed.svg" alt="Premium Banner" onclick="window.location.href='/create.html'; return false;" loading="lazy" width="600" height="200"></div>
         </div>
         <div class="carousel-dots" id="carouselDots">
-            <span class="dot active" data-index="0" onclick="window.location.href='/create.html'; return false;"></span>
-            <span class="dot" data-index="1" onclick="window.location.href='/create.html'; return false;"></span>
-            <span class="dot" data-index="2" onclick="window.location.href='/create.html'; return false;"></span>
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
         </div>
     </div>
     <section class="building-trust-section">
@@ -742,3 +742,47 @@
             <div class="download-buttons">
                 <button class="btn btn-outline-white" onclick="window.location.href='/create.html'">Create New Wallet</button>
                 <button class="btn btn-outline-white"
+</main>
+<!-- JavaScript for carousel dots -->
+<script>
+(function() {
+    const carousel = document.getElementById('carousel');
+    const dots = document.querySelectorAll('.dot');
+    if (!carousel || dots.length === 0) return;
+
+    // Функция обновления активной точки
+    function updateActiveDot() {
+        if (!carousel) return;
+        const scrollLeft = carousel.scrollLeft;
+        const itemWidth = carousel.clientWidth;
+        if (itemWidth === 0) return;
+        const index = Math.round(scrollLeft / itemWidth);
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+    }
+
+    // Прокрутка по клику на точку
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (!carousel) return;
+            const itemWidth = carousel.clientWidth;
+            if (itemWidth === 0) return;
+            carousel.scrollTo({
+                left: index * itemWidth,
+                behavior: 'smooth'
+            });
+            updateActiveDot(); // Мгновенно обновить активный класс
+        });
+    });
+
+    // Отслеживаем прокрутку
+    carousel.addEventListener('scroll', updateActiveDot);
+
+    // Начальная активация
+    updateActiveDot();
+})();
+</script>
+</body>
+</html>
